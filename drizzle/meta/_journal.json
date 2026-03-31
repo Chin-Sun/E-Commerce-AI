@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1774767599052,
+      "tag": "0000_good_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1774767968057,
+      "tag": "0001_pretty_husk",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1774851348538,
+      "tag": "0002_brave_captain_america",
+      "breakpoints": true
+    }
+  ]
+}
