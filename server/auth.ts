@@ -25,6 +25,92 @@ function safeBase64Decode(s: string): string {
 
 export function registerCustomAuthRoutes(app: Express) {
   /**
+   * GET /api/auth/authing/start
+   * Redirects to Authing hosted login page (SMS verification).
+   */
+  app.get("/api/auth/authing/start", (req: Request, res: Response) => {
+    if (!ENV.authingAppId || !ENV.authingDomain) {
+      res.status(503).send("Authing login is not configured. Set AUTHING_APP_ID, AUTHING_APP_SECRET, AUTHING_DOMAIN.");
+      return;
+    }
+    const returnTo = typeof req.query.returnTo === "string" ? req.query.returnTo : "/";
+    const state = Buffer.from(JSON.stringify({ returnTo })).toString("base64");
+    const redirectUri = `${req.protocol}://${req.get("host")}/api/auth/authing/callback`;
+    const params = new URLSearchParams({
+      client_id: ENV.authingAppId,
+      redirect_uri: redirectUri,
+      response_type: "code",
+      scope: "openid profile email phone",
+      state,
+    });
+    res.redirect(302, `https://${ENV.authingDomain}/oidc/auth?${params}`);
+  });
+
+  /**
+   * GET /api/auth/authing/callback
+   * Authing redirects here after SMS authentication.
+   */
+  app.get("/api/auth/authing/callback", async (req: Request, res: Response) => {
+    const code = typeof req.query.code === "string" ? req.query.code : null;
+    const stateRaw = typeof req.query.state === "string" ? req.query.state : "";
+
+    if (!code) {
+      res.redirect(302, "/?error=authing_no_code");
+      return;
+    }
+
+    let returnTo = "/";
+    try {
+      const parsed = JSON.parse(safeBase64Decode(stateRaw));
+      if (typeof parsed.returnTo === "string") returnTo = parsed.returnTo;
+    } catch { /* use default */ }
+
+    try {
+      const redirectUri = `${req.protocol}://${req.get("host")}/api/auth/authing/callback`;
+
+      const { data: tokens } = await axios.post<{ access_token: string }>(
+        `https://${ENV.authingDomain}/oidc/token`,
+        new URLSearchParams({
+          code,
+          client_id: ENV.authingAppId,
+          client_secret: ENV.authingAppSecret,
+          redirect_uri: redirectUri,
+          grant_type: "authorization_code",
+        }).toString(),
+        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      );
+
+      const { data: profile } = await axios.get<{
+        sub: string;
+        name?: string;
+        email?: string;
+        phone_number?: string;
+      }>(`https://${ENV.authingDomain}/oidc/me`, {
+        headers: { Authorization: `Bearer ${tokens.access_token}` },
+      });
+
+      const openId = `authing:${profile.sub}`;
+      const name = profile.name || profile.phone_number || profile.email || openId;
+
+      await db.upsertUser({
+        openId,
+        name,
+        email: profile.email ?? null,
+        loginMethod: "authing",
+        lastSignedIn: new Date(),
+      });
+
+      const sessionToken = await sdk.createSessionToken(openId, { name, expiresInMs: ONE_YEAR_MS });
+      const cookieOptions = getSessionCookieOptions(req);
+      res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+      res.redirect(302, returnTo || "/");
+    } catch (error) {
+      console.error("[Authing Auth] Callback error:", error);
+      res.redirect(302, "/?error=authing_auth_failed");
+    }
+  });
+
+  /**
    * GET /api/auth/google/start
    * Redirects the browser to Google's OAuth consent screen.
    */

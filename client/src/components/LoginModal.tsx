@@ -24,6 +24,7 @@ const WECHAT_GREEN = "#07C160";
 function EmailSocialTab() {
   const { t } = useI18n();
 
+  // Google OAuth login
   const handleGoogleLogin = () => {
     const returnTo = window.location.pathname + window.location.search;
     window.location.href = `/api/auth/google/start?returnTo=${encodeURIComponent(returnTo)}`;
@@ -195,6 +196,11 @@ function PhoneTab() {
       ? t("login.resendCode").replace("{s}", String(countdown))
       : t("login.sendCode");
 
+  const handleAuthingLogin = () => {
+    const returnTo = window.location.pathname + window.location.search;
+    window.location.href = `/api/auth/authing/start?returnTo=${encodeURIComponent(returnTo)}`;
+  };
+
   return (
     <div className="flex flex-col gap-5 py-4">
       {/* Phone number input */}
@@ -220,7 +226,6 @@ function PhoneTab() {
           </Button>
         </div>
       </div>
-
       {/* OTP input — only shown after code is sent */}
       {codeSent && (
         <div className="space-y-1.5">
@@ -247,6 +252,14 @@ function PhoneTab() {
           {verifyOtp.isPending ? t("common.loading") : t("login.verify")}
         </Button>
       )}
+
+      <Button
+        variant="outline"
+        className="w-full font-semibold"
+        onClick={handleAuthingLogin}
+      >
+        手机号短信验证登录
+      </Button>
     </div>
   );
 }

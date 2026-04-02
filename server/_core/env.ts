@@ -38,4 +38,8 @@ export const ENV = {
   smsAccessKeySecret: process.env.SMS_ACCESS_KEY_SECRET ?? "",
   smsSignName: process.env.SMS_SIGN_NAME ?? "五金商城",
   smsTemplateCode: process.env.SMS_TEMPLATE_CODE ?? "",
+  // Authing OIDC
+  authingAppId: process.env.AUTHING_APP_ID ?? "",
+  authingAppSecret: process.env.AUTHING_APP_SECRET ?? "",
+  authingDomain: process.env.AUTHING_DOMAIN ?? "",
 };
