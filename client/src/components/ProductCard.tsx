@@ -1,11 +1,12 @@
 import { useI18n } from "@/contexts/I18nContext";
+import { formatPrice } from "@/lib/i18n";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Package } from "lucide-react";
 import type { Product } from "../../../drizzle/schema";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { tf } = useI18n();
+  const { tf, locale } = useI18n();
   const images = (product.images as string[] | null) ?? [];
   const inStock = product.stock > 0;
 
@@ -37,7 +38,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </h3>
         <div className="flex items-center justify-between">
           <span className="text-base font-bold tracking-tight">
-            ${Number(product.price).toFixed(2)}
+            {formatPrice(Number(product.price), locale)}
           </span>
           <Badge
             variant={inStock ? "secondary" : "destructive"}

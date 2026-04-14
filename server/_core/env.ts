@@ -5,8 +5,11 @@ export const ENV = {
   oAuthServerUrl: process.env.OAUTH_SERVER_URL ?? "",
   ownerOpenId: process.env.OWNER_OPEN_ID ?? "",
   isProduction: process.env.NODE_ENV === "production",
-  forgeApiUrl: process.env.BUILT_IN_FORGE_API_URL ?? "",
-  forgeApiKey: process.env.BUILT_IN_FORGE_API_KEY ?? "",
+  ossAccessKeyId: process.env.OSS_ACCESS_KEY_ID ?? "",
+  ossAccessKeySecret: process.env.OSS_ACCESS_KEY_SECRET ?? "",
+  ossBucket: process.env.OSS_BUCKET ?? "",
+  ossRegion: process.env.OSS_REGION ?? "",
+  ossCdnDomain: process.env.OSS_CDN_DOMAIN ?? "",
   // Google OAuth credentials
   googleClientId: process.env.GOOGLE_CLIENT_ID ?? "",
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
@@ -41,5 +44,5 @@ export const ENV = {
   // Authing OIDC
   authingAppId: process.env.AUTHING_APP_ID ?? "",
   authingAppSecret: process.env.AUTHING_APP_SECRET ?? "",
-  authingDomain: process.env.AUTHING_DOMAIN ?? "",
+  authingDomain: (process.env.AUTHING_DOMAIN ?? "").replace(/^https?:\/\//, ""),
 };

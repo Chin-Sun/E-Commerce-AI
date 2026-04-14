@@ -1,4 +1,5 @@
 import { useI18n } from "@/contexts/I18nContext";
+import { formatPrice } from "@/lib/i18n";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLoginModal } from "@/contexts/LoginModalContext";
 import { trpc } from "@/lib/trpc";
@@ -9,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Minus, Plus, Trash2, ShoppingCart, Package } from "lucide-react";
 
 export default function Cart() {
-  const { t, tf } = useI18n();
+  const { t, tf, locale } = useI18n();
   const { user } = useAuth();
   const { openLoginModal } = useLoginModal();
   const utils = trpc.useUtils();
@@ -113,7 +114,7 @@ export default function Cart() {
                       </div>
                     </div>
                     <div className="col-span-4 md:col-span-2 text-center text-sm font-medium">
-                      ${price.toFixed(2)}
+                      {formatPrice(price, locale)}
                     </div>
                     <div className="col-span-4 md:col-span-2 flex items-center justify-center">
                       <div className="flex items-center border border-border">
@@ -146,7 +147,7 @@ export default function Cart() {
                     </div>
                     <div className="col-span-4 md:col-span-2 flex items-center justify-end gap-2">
                       <span className="text-sm font-bold">
-                        ${(price * item.quantity).toFixed(2)}
+                        {formatPrice(price * item.quantity, locale)}
                       </span>
                       <button
                         onClick={() => removeItem.mutate({ itemId: item.id })}
@@ -170,12 +171,12 @@ export default function Cart() {
                 <span className="text-muted-foreground">
                   {t("cart.subtotal")} ({items.length} {t("cart.items")})
                 </span>
-                <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                <span className="font-semibold">{formatPrice(subtotal, locale)}</span>
               </div>
               <Separator className="my-4" />
               <div className="flex justify-between text-base font-bold mb-6">
                 <span>{t("cart.total")}</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>{formatPrice(subtotal, locale)}</span>
               </div>
               <Button
                 asChild

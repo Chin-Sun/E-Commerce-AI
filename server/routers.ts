@@ -8,6 +8,7 @@ import { z } from "zod";
 import * as db from "./db";
 import { createCheckoutSession } from "./stripe";
 import { sendSmsOtp } from "./sms";
+import { storagePut } from "./storage";
 import {
   createNativeOrder as createWechatPayOrder,
   isWechatPayConfigured,
@@ -307,6 +308,18 @@ const orderRouter = router({
 /* ─── Admin Router ─── */
 const adminRouter = router({
   stats: adminProcedure.query(() => db.getAdminStats()),
+  uploadImage: adminProcedure
+    .input(z.object({ base64: z.string(), filename: z.string() }))
+    .mutation(async ({ input }) => {
+      const matches = input.base64.match(/^data:(.+);base64,(.+)$/);
+      const contentType = matches?.[1] ?? "image/jpeg";
+      const raw = matches?.[2] ?? input.base64;
+      const buffer = Buffer.from(raw, "base64");
+      const ext = input.filename.split(".").pop() ?? "jpg";
+      const key = `products/${Date.now()}.${ext}`;
+      const { url } = await storagePut(key, buffer, contentType);
+      return { url };
+    }),
   products: router({
     list: adminProcedure
       .input(

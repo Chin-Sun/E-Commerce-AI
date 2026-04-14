@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useI18n } from "@/contexts/I18nContext";
+import { formatPrice } from "@/lib/i18n";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLoginModal } from "@/contexts/LoginModalContext";
 import { trpc } from "@/lib/trpc";
@@ -12,7 +13,7 @@ import { toast } from "sonner";
 import { ArrowLeft, Minus, Plus, Package, ShoppingCart } from "lucide-react";
 
 export default function ProductDetail() {
-  const { t, tf } = useI18n();
+  const { t, tf, locale } = useI18n();
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
   const { openLoginModal } = useLoginModal();
@@ -117,7 +118,7 @@ export default function ProductDetail() {
 
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl font-black tracking-tight">
-                ${Number(product.price).toFixed(2)}
+                {formatPrice(Number(product.price), locale)}
               </span>
               <Badge variant={inStock ? "secondary" : "destructive"}>
                 {inStock

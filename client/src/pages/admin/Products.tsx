@@ -48,6 +48,7 @@ interface ProductForm {
   price: string;
   stock: number;
   isActive: boolean;
+  images: string[];
 }
 
 const EMPTY_FORM: ProductForm = {
@@ -64,6 +65,7 @@ const EMPTY_FORM: ProductForm = {
   price: "0.00",
   stock: 0,
   isActive: true,
+  images: [],
 };
 
 export default function AdminProducts() {
@@ -123,18 +125,23 @@ export default function AdminProducts() {
       price: String(p.price),
       stock: p.stock,
       isActive: p.isActive,
+      images: Array.isArray(p.images) ? p.images : [],
     });
     setDialogOpen(true);
   };
+
+  const uploadMut = trpc.admin.uploadImage.useMutation({
+    onSuccess: ({ url }) => setField("images", [url]),
+  });
 
   const handleSave = () => {
     if (editId) {
       updateMut.mutate({
         id: editId,
-        data: { ...form, price: form.price, stock: form.stock },
+        data: { ...form, price: form.price, stock: form.stock, images: form.images },
       });
     } else {
-      createMut.mutate({ ...form, price: form.price, stock: form.stock });
+      createMut.mutate({ ...form, price: form.price, stock: form.stock, images: form.images });
     }
   };
 
@@ -322,6 +329,39 @@ export default function AdminProducts() {
                 />
               </div>
             ))}
+            <div className="col-span-2">
+              <Label className="text-xs uppercase tracking-wider">
+                Product Image
+              </Label>
+              <div className="mt-1 flex items-center gap-4">
+                {form.images[0] && (
+                  <img
+                    src={form.images[0]}
+                    alt="product"
+                    className="w-16 h-16 object-cover border border-border"
+                  />
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="text-sm"
+                  onChange={e => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = () =>
+                      uploadMut.mutate({
+                        base64: reader.result as string,
+                        filename: file.name,
+                      });
+                    reader.readAsDataURL(file);
+                  }}
+                />
+                {uploadMut.isPending && (
+                  <span className="text-xs text-muted-foreground">Uploading…</span>
+                )}
+              </div>
+            </div>
             <div>
               <Label className="text-xs uppercase tracking-wider">
                 {t("product.price")}

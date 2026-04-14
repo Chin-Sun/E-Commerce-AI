@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Package } from "lucide-react";
 import { getLoginUrl } from "@/const";
-import type { TranslationKey } from "@/lib/i18n";
+import { formatPrice, type TranslationKey } from "@/lib/i18n";
 
 const STATUS_VARIANT: Record<
   string,
@@ -22,7 +22,7 @@ const STATUS_VARIANT: Record<
 };
 
 export default function Orders() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const { user } = useAuth();
   const { data: orders, isLoading } = trpc.order.myOrders.useQuery(undefined, {
     enabled: !!user,
@@ -92,7 +92,7 @@ export default function Orders() {
                   </Badge>
                 </div>
                 <div className="font-bold text-sm">
-                  ${Number(order.totalAmount).toFixed(2)}
+                  {formatPrice(Number(order.totalAmount), locale)}
                 </div>
                 <div className="text-right">
                   <Button asChild variant="ghost" size="sm">

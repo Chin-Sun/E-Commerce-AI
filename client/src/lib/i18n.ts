@@ -7,6 +7,17 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   ms: "Bahasa Melayu",
 };
 
+export const LOCALE_CURRENCY: Record<Locale, string> = {
+  en: "US$",
+  zh: "¥",
+  zhTw: "¥",
+  ms: "RM",
+};
+
+export function formatPrice(amount: number, locale: Locale): string {
+  return `${LOCALE_CURRENCY[locale]}${amount.toFixed(2)}`;
+}
+
 const translations = {
   /* ─── Navigation ─── */
   "nav.home": { en: "Home", zh: "首页", zhTw: "首頁", ms: "Laman Utama" },

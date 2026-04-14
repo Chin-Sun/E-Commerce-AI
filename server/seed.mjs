@@ -403,7 +403,15 @@ const productSeed = [
 ];
 
 async function seed() {
-  const conn = await mysql.createConnection(process.env.DATABASE_URL);
+    const url = new URL(process.env.DATABASE_URL);                        
+    const conn = await mysql.createConnection({
+      host: url.hostname,             
+      port: parseInt(url.port) || 3306,
+      user: url.username,             
+      password: url.password,         
+      database: url.pathname.slice(1),
+      ssl: { rejectUnauthorized: false },
+      });
 
   console.log("Seeding categories...");
   for (const c of categorySeed) {

@@ -10,11 +10,11 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, CheckCircle2, XCircle, CreditCard } from "lucide-react";
 import { getLoginUrl } from "@/const";
 import { toast } from "sonner";
-import type { TranslationKey } from "@/lib/i18n";
+import { formatPrice, type TranslationKey } from "@/lib/i18n";
 import { useEffect, useState } from "react";
 
 export default function OrderDetail() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
   const searchString = useSearch();
@@ -161,12 +161,12 @@ export default function OrderDetail() {
               <div className="col-span-2">
                 <p className="text-sm font-medium">{item.productName}</p>
                 <p className="text-xs text-muted-foreground">
-                  ${Number(item.unitPrice).toFixed(2)} each
+                  {formatPrice(Number(item.unitPrice), locale)} each
                 </p>
               </div>
               <div className="text-center text-sm">{item.quantity}</div>
               <div className="text-right text-sm font-bold">
-                ${Number(item.totalPrice).toFixed(2)}
+                {formatPrice(Number(item.totalPrice), locale)}
               </div>
             </div>
           ))}
@@ -178,7 +178,7 @@ export default function OrderDetail() {
             <Separator className="mb-3" />
             <div className="flex justify-between text-lg font-bold">
               <span>{t("cart.total")}</span>
-              <span>${Number(order.totalAmount).toFixed(2)}</span>
+              <span>{formatPrice(Number(order.totalAmount), locale)}</span>
             </div>
           </div>
         </div>

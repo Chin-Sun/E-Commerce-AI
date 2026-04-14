@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useI18n } from "@/contexts/I18nContext";
+import { formatPrice } from "@/lib/i18n";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLoginModal } from "@/contexts/LoginModalContext";
 import { trpc } from "@/lib/trpc";
@@ -39,7 +40,7 @@ const INITIAL_FORM: ShippingForm = {
 };
 
 export default function Checkout() {
-  const { t, tf } = useI18n();
+  const { t, tf, locale } = useI18n();
   const { user } = useAuth();
   const { openLoginModal } = useLoginModal();
   const [, navigate] = useLocation();
@@ -178,10 +179,7 @@ export default function Checkout() {
                         {item.quantity}
                       </span>
                       <span className="font-medium shrink-0">
-                        $
-                        {(
-                          Number(item.product?.price ?? 0) * item.quantity
-                        ).toFixed(2)}
+                        {formatPrice(Number(item.product?.price ?? 0) * item.quantity, locale)}
                       </span>
                     </div>
                   ))}
@@ -189,7 +187,7 @@ export default function Checkout() {
                 <Separator className="my-4" />
                 <div className="flex justify-between text-base font-bold mb-6">
                   <span>{t("cart.total")}</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>{formatPrice(subtotal, locale)}</span>
                 </div>
                 <Button
                   type="submit"

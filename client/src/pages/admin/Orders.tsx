@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import type { TranslationKey } from "@/lib/i18n";
+import { formatPrice, type TranslationKey } from "@/lib/i18n";
 
 const STATUSES = [
   "pending",
@@ -34,7 +34,7 @@ const STATUS_VARIANT: Record<
 };
 
 export default function AdminOrders() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const utils = trpc.useUtils();
   const { data, isLoading } = trpc.admin.orders.list.useQuery();
 
@@ -111,7 +111,7 @@ export default function AdminOrders() {
                     {order.shippingName || `User #${order.userId}`}
                   </td>
                   <td className="p-3 text-right font-bold">
-                    ${Number(order.totalAmount).toFixed(2)}
+                    {formatPrice(Number(order.totalAmount), locale)}
                   </td>
                   <td className="p-3">
                     <Badge
