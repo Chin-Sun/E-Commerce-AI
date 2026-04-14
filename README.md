@@ -124,6 +124,7 @@ Follow the prompts. When done, open `http://<your-server-ip>:8888` in a browser 
 ### Step 3 — Upload the project
 
 Option A — clone from Git inside the server:
+
 ```bash
 git clone <your-repo-url> /opt/hardware_ecommerce
 cd /opt/hardware_ecommerce

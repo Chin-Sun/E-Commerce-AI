@@ -1,15 +1,15 @@
 export type Locale = "en" | "zh" | "zhTw" | "ms";
 
 export const LOCALE_LABELS: Record<Locale, string> = {
-  en: "English",
   zh: "简体中文",
+  en: "English",
   zhTw: "繁體中文",
   ms: "Bahasa Melayu",
 };
 
 export const LOCALE_CURRENCY: Record<Locale, string> = {
-  en: "US$",
   zh: "¥",
+  en: "US$",
   zhTw: "¥",
   ms: "RM",
 };
@@ -676,7 +676,7 @@ export function localizedField<T extends Record<string, any>>(
 
 export function getStoredLocale(): Locale {
   if (typeof window === "undefined") return "en";
-  return (localStorage.getItem("locale") as Locale) || "en";
+  return (localStorage.getItem("locale") as Locale) || "zh";
 }
 
 export function setStoredLocale(locale: Locale) {
