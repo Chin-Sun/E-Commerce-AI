@@ -46,18 +46,14 @@ export async function sendSmsOtp(phone: string, code: string): Promise<void> {
     .map(k => `${encode(k)}=${encode(params[k])}`)
     .join("&");
 
-  const stringToSign = `POST&${encode("/")}&${encode(sorted)}`;
+  const stringToSign = `GET&${encode("/")}&${encode(sorted)}`;
   const signature = crypto
     .createHmac("sha1", `${ENV.smsAccessKeySecret}&`)
     .update(stringToSign)
     .digest("base64");
 
-  const body = new URLSearchParams({ ...params, Signature: signature });
-
-  const { data } = await axios.post(
-    "https://dysmsapi.aliyuncs.com/",
-    body.toString(),
-    { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+  const { data } = await axios.get(
+    `https://dysmsapi.aliyuncs.com/?${sorted}&Signature=${encode(signature)}`
   );
 
   if (data.Code !== "OK") {

@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useI18n } from "@/contexts/I18nContext";
-import { trpc } from "@/lib/trpc";
 import { useLoginModal } from "@/contexts/LoginModalContext";
 import {
   Dialog,
@@ -13,10 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { toast } from "sonner";
 import { Smartphone, MessageSquare, Mail } from "lucide-react";
-
-const RESEND_SECONDS = 60;
 
 // WeChat green brand colour
 const WECHAT_GREEN = "#07C160";
@@ -135,129 +131,28 @@ function WeChatTab() {
 
 function PhoneTab() {
   const { t } = useI18n();
-  const { closeLoginModal } = useLoginModal();
-  const utils = trpc.useUtils();
-
   const [phone, setPhone] = useState("");
-  const [code, setCode] = useState("");
-  const [codeSent, setCodeSent] = useState(false);
-  const [countdown, setCountdown] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const sendOtp = trpc.auth.sendOtp.useMutation({
-    onSuccess: () => {
-      setCodeSent(true);
-      setCountdown(RESEND_SECONDS);
-      toast.success(t("login.codeSent"));
-    },
-    onError: err => {
-      toast.error(err.message || t("login.sendError"));
-    },
-  });
-
-  const verifyOtp = trpc.auth.verifyOtp.useMutation({
-    onSuccess: () => {
-      utils.auth.me.invalidate();
-      closeLoginModal();
-      toast.success(t("nav.login") + " ✓");
-    },
-    onError: () => {
-      toast.error(t("login.codeError"));
-    },
-  });
-
-  // Countdown timer
-  useEffect(() => {
-    if (countdown <= 0) return;
-    timerRef.current = setInterval(() => {
-      setCountdown(c => {
-        if (c <= 1) {
-          clearInterval(timerRef.current!);
-          return 0;
-        }
-        return c - 1;
-      });
-    }, 1000);
-    return () => clearInterval(timerRef.current!);
-  }, [countdown]);
-
-  const handleSend = () => {
-    if (!phone.trim()) return;
-    sendOtp.mutate({ phone: phone.trim() });
-  };
-
-  const handleVerify = () => {
-    if (!phone.trim() || code.length !== 6) return;
-    verifyOtp.mutate({ phone: phone.trim(), code: code.trim() });
-  };
-
-  const resendLabel =
-    countdown > 0
-      ? t("login.resendCode").replace("{s}", String(countdown))
-      : t("login.sendCode");
 
   const handleAuthingLogin = () => {
     const returnTo = window.location.pathname + window.location.search;
-    window.location.href = `/api/auth/authing/start?returnTo=${encodeURIComponent(returnTo)}`;
+    const params = new URLSearchParams({ returnTo });
+    if (phone.trim()) params.set("phone", phone.trim());
+    window.location.href = `/api/auth/authing/start?${params}`;
   };
 
   return (
     <div className="flex flex-col gap-5 py-4">
-      {/* Phone number input */}
       <div className="space-y-1.5">
         <Label htmlFor="login-phone">{t("login.phoneNumber")}</Label>
-        <div className="flex gap-2">
-          <Input
-            id="login-phone"
-            type="tel"
-            placeholder={t("login.phonePlaceholder")}
-            value={phone}
-            onChange={e => setPhone(e.target.value)}
-            disabled={sendOtp.isPending || verifyOtp.isPending}
-            className="flex-1"
-          />
-          <Button
-            variant="outline"
-            onClick={handleSend}
-            disabled={!phone.trim() || countdown > 0 || sendOtp.isPending}
-            className="whitespace-nowrap shrink-0"
-          >
-            {sendOtp.isPending ? "..." : resendLabel}
-          </Button>
-        </div>
+        <Input
+          id="login-phone"
+          type="tel"
+          placeholder={t("login.phonePlaceholder")}
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
+        />
       </div>
-      {/* OTP input — only shown after code is sent */}
-      {codeSent && (
-        <div className="space-y-1.5">
-          <Label htmlFor="login-code">{t("login.verifyCode")}</Label>
-          <Input
-            id="login-code"
-            type="text"
-            inputMode="numeric"
-            maxLength={6}
-            placeholder={t("login.verifyPlaceholder")}
-            value={code}
-            onChange={e => setCode(e.target.value.replace(/\D/g, ""))}
-            disabled={verifyOtp.isPending}
-          />
-        </div>
-      )}
-
-      {codeSent && (
-        <Button
-          onClick={handleVerify}
-          disabled={code.length !== 6 || verifyOtp.isPending}
-          className="w-full font-semibold"
-        >
-          {verifyOtp.isPending ? t("common.loading") : t("login.verify")}
-        </Button>
-      )}
-
-      <Button
-        variant="outline"
-        className="w-full font-semibold"
-        onClick={handleAuthingLogin}
-      >
+      <Button className="w-full font-semibold" onClick={handleAuthingLogin}>
         手机号短信验证登录
       </Button>
     </div>

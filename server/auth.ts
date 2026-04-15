@@ -34,6 +34,7 @@ export function registerCustomAuthRoutes(app: Express) {
       return;
     }
     const returnTo = typeof req.query.returnTo === "string" ? req.query.returnTo : "/";
+    const phone = typeof req.query.phone === "string" ? req.query.phone : "";
     const state = Buffer.from(JSON.stringify({ returnTo })).toString("base64");
     const redirectUri = `${req.protocol}://${req.get("host")}/api/auth/authing/callback`;
     const params = new URLSearchParams({
@@ -42,7 +43,9 @@ export function registerCustomAuthRoutes(app: Express) {
       response_type: "code",
       scope: "openid profile email phone",
       state,
+      prompt: "login",
     });
+    if (phone) params.set("login_hint", phone);
     res.redirect(302, `https://${ENV.authingDomain}/oidc/auth?${params}`);
   });
 
