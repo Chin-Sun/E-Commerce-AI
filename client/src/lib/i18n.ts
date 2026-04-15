@@ -58,10 +58,10 @@ const translations = {
 
   /* ─── Home Page ─── */
   "home.hero.title": {
-    en: "Industrial Hardware Solutions",
-    zh: "工业五金解决方案",
-    zhTw: "工業五金解決方案",
-    ms: "Penyelesaian Perkakasan Industri",
+    en: "Zhenda Hardware Market",
+    zh: "振达五金商店",
+    zhTw: "振達五金商店",
+    ms: "Kedai Perkakasan Zhenda",
   },
   "home.hero.subtitle": {
     en: "Precision components for engineering excellence",

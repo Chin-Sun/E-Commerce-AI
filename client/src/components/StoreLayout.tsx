@@ -123,8 +123,8 @@ function Header() {
       <div className="container flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-primary" />
-          <span className="text-lg font-bold tracking-tight">HARDWAREMART</span>
+          <img src="/logo/logo.png" alt="ZHENDA MARKET" className="h-8 w-auto" />
+          <span className="text-lg font-bold tracking-tight">ZHENDA MARKET</span>
         </Link>
 
         {/* Desktop Nav */}
