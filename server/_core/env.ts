@@ -45,4 +45,9 @@ export const ENV = {
   authingAppId: process.env.AUTHING_APP_ID ?? "",
   authingAppSecret: process.env.AUTHING_APP_SECRET ?? "",
   authingDomain: (process.env.AUTHING_DOMAIN ?? "").replace(/^https?:\/\//, ""),
+  // Forge API (used by dataApi, imageGeneration, map, notification, voiceTranscription)
+  forgeApiKey: process.env.FORGE_API_KEY ?? "",
+  forgeApiUrl: process.env.FORGE_API_URL ?? "",
+  // DeepSeek API (used by llm.ts / AI agent)
+  deepseekApiKey: process.env.DEEPSEEK_API_KEY ?? "",
 };

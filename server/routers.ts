@@ -9,6 +9,7 @@ import * as db from "./db";
 import { createCheckoutSession } from "./stripe";
 import { sendSmsOtp } from "./sms";
 import { storagePut } from "./storage";
+import { runAgentLoop, defaultAdapter } from "./agent";
 import {
   createNativeOrder as createWechatPayOrder,
   isWechatPayConfigured,
@@ -416,6 +417,22 @@ const adminRouter = router({
   }),
 });
 
+/* ─── AI Router ─── */
+const aiRouter = router({
+  chat: protectedProcedure
+    .input(
+      z.object({
+        messages: z.array(
+          z.object({
+            role: z.enum(["user", "assistant", "system"]),
+            content: z.string(),
+          })
+        ),
+      })
+    )
+    .mutation(({ input }) => runAgentLoop(input.messages, defaultAdapter)),
+});
+
 /* ─── Root Router ─── */
 export const appRouter = router({
   system: systemRouter,
@@ -425,6 +442,7 @@ export const appRouter = router({
   cart: cartRouter,
   order: orderRouter,
   admin: adminRouter,
+  ai: aiRouter,
 });
 
 export type AppRouter = typeof appRouter;

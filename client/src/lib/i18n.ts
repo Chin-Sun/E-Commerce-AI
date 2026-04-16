@@ -21,6 +21,7 @@ export function formatPrice(amount: number, locale: Locale): string {
 const translations = {
   /* ─── Navigation ─── */
   "nav.home": { en: "Home", zh: "首页", zhTw: "首頁", ms: "Laman Utama" },
+  "nav.ai": { en: "AI Assistant", zh: "AI 助手", zhTw: "AI 助手", ms: "Pembantu AI" },
   "nav.products": { en: "Products", zh: "产品", zhTw: "產品", ms: "Produk" },
   "nav.cart": { en: "Cart", zh: "购物车", zhTw: "購物車", ms: "Troli" },
   "nav.orders": { en: "Orders", zh: "订单", zhTw: "訂單", ms: "Pesanan" },
@@ -617,6 +618,27 @@ const translations = {
     zhTw: "郵箱 / 社交帳號登入",
     ms: "Teruskan dengan E-mel / Sosial",
   },
+
+  /* ─── AI Assistant ─── */
+  "ai.pageTitle": { en: "AI Shopping Assistant", zh: "AI 购物助手", zhTw: "AI 購物助手", ms: "Pembantu Beli-belah AI" },
+  "ai.emptyState": { en: "Ask me anything about hardware products", zh: "问我任何关于五金产品的问题", zhTw: "問我任何關於五金產品的問題", ms: "Tanya saya apa-apa tentang produk perkakasan" },
+  "ai.placeholder": { en: "e.g. Show me stainless steel bolts under $5", zh: "例如：显示5美元以下的不锈钢螺栓", zhTw: "例如：顯示5美元以下的不鏽鋼螺栓", ms: "cth. Tunjukkan bolt keluli tahan karat bawah $5" },
+  "ai.comparePrompt": { en: "Compare these products for me", zh: "帮我比较这些产品", zhTw: "幫我比較這些產品", ms: "Bandingkan produk-produk ini untuk saya" },
+  "ai.clarificationBanner": { en: "Do any of these match what you're looking for?", zh: "这些产品是否符合您的需求？", zhTw: "這些產品是否符合您的需求？", ms: "Adakah mana-mana produk ini sepadan dengan yang anda cari?" },
+  "ai.productsFound": { en: "Products Found", zh: "找到的产品", zhTw: "找到的產品", ms: "Produk Dijumpai" },
+  "ai.comparison": { en: "Comparison", zh: "产品对比", zhTw: "產品對比", ms: "Perbandingan" },
+  "ai.recommendation": { en: "Recommendation", zh: "推荐", zhTw: "推薦", ms: "Cadangan" },
+  "ai.viewProduct": { en: "View", zh: "查看", zhTw: "查看", ms: "Lihat" },
+  "ai.addToCart": { en: "Add to Cart", zh: "加入购物车", zhTw: "加入購物車", ms: "Tambah ke Troli" },
+  "ai.loginPrompt": { en: "Sign in to use the AI assistant", zh: "请登录以使用AI助手", zhTw: "請登入以使用AI助手", ms: "Log masuk untuk menggunakan pembantu AI" },
+  "ai.thinkingLabel": { en: "Thinking", zh: "思考中", zhTw: "思考中", ms: "Berfikir" },
+  "ai.suggestCompare": { en: "Which product is better?", zh: "哪个产品更好？", zhTw: "哪個產品更好？", ms: "Produk mana yang lebih baik?" },
+  "ai.suggestDetail": { en: "Tell me more about these products", zh: "告诉我更多关于这些产品", zhTw: "告訴我更多關於這些產品", ms: "Beritahu saya lebih lanjut tentang produk ini" },
+  "ai.specDiff": { en: "Spec Differences", zh: "规格差异", zhTw: "規格差異", ms: "Perbezaan Spesifikasi" },
+  "ai.priceRange": { en: "Price Range", zh: "价格区间", zhTw: "價格區間", ms: "Julat Harga" },
+  "ai.roundThought": { en: "Thought", zh: "思考", zhTw: "思考", ms: "Fikiran" },
+  "ai.roundAction": { en: "Action", zh: "动作", zhTw: "動作", ms: "Tindakan" },
+  "ai.roundObservation": { en: "Observation", zh: "观察", zhTw: "觀察", ms: "Pemerhatian" },
 
   /* ─── Footer ─── */
   "footer.about": {

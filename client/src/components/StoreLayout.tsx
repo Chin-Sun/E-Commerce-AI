@@ -20,6 +20,7 @@ import {
   Package,
   ChevronDown,
   Shield,
+  Sparkles,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import { useState, type ReactNode } from "react";
@@ -88,6 +89,7 @@ function NavLinks({
   const links = [
     { href: "/", label: t("nav.home") },
     { href: "/products", label: t("nav.products") },
+    { href: "/ai", label: t("nav.ai"), icon: <Sparkles className="h-3.5 w-3.5" /> },
   ];
 
   const cls = mobile
@@ -101,10 +103,11 @@ function NavLinks({
           key={link.href}
           href={link.href}
           onClick={onClose}
-          className={`px-3 py-2 text-sm font-medium tracking-wide transition-colors hover:text-primary ${
+          className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium tracking-wide transition-colors hover:text-primary ${
             location === link.href ? "text-primary" : "text-foreground/70"
           }`}
         >
+          {"icon" in link && link.icon}
           {link.label}
         </Link>
       ))}
