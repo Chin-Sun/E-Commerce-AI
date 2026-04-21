@@ -13,7 +13,7 @@
  */
 import axios from "axios";
 import crypto from "crypto";
-import { ENV } from "./_core/env";
+import { ENV } from "../_core/env";
 
 const WECHAT_PAY_BASE = "https://api.mch.weixin.qq.com";
 

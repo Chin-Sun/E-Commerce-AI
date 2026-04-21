@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ENV } from "./_core/env";
+import { ENV } from "../_core/env";
 
 const WECHAT_QR_BASE = "https://open.weixin.qq.com/connect/qrconnect";
 const WECHAT_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token";

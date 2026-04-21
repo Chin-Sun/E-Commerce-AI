@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import axios from "axios";
-import { ENV } from "./_core/env";
+import { ENV } from "../_core/env";
 
 /**
  * Send an SMS OTP via Alibaba Cloud SMS (阿里云短信服务).

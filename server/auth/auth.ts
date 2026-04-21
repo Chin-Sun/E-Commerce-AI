@@ -1,10 +1,10 @@
 import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 import axios from "axios";
 import type { Express, Request, Response } from "express";
-import * as db from "./db";
-import { getSessionCookieOptions } from "./_core/cookies";
-import { ENV } from "./_core/env";
-import { sdk } from "./_core/sdk";
+import * as db from "../db";
+import { getSessionCookieOptions } from "../_core/cookies";
+import { ENV } from "../_core/env";
+import { sdk } from "../_core/sdk";
 import {
   exchangeWeChatCode,
   getWeChatAuthUrl,

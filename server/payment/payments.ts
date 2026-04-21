@@ -3,7 +3,7 @@
  * Both providers call these endpoints when a payment succeeds.
  */
 import type { Express, Request, Response } from "express";
-import * as db from "./db";
+import * as db from "../db";
 import { decryptNotification } from "./wechatpay";
 import { verifyAlipayNotify } from "./alipay";
 

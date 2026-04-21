@@ -6,17 +6,17 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import * as db from "./db";
-import { createCheckoutSession } from "./stripe";
-import { sendSmsOtp } from "./sms";
+import { createCheckoutSession } from "./payment/stripe";
+import { sendSmsOtp } from "./auth/sms";
 import { storagePut } from "./storage";
 import {
   createNativeOrder as createWechatPayOrder,
   isWechatPayConfigured,
-} from "./wechatpay";
+} from "./payment/wechatpay";
 import {
   createPrecreateOrder as createAlipayOrder,
   isAlipayConfigured,
-} from "./alipay";
+} from "./payment/alipay";
 
 /* ─── Admin guard ─── */
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {

@@ -12,7 +12,7 @@
  */
 import axios from "axios";
 import crypto from "crypto";
-import { ENV } from "./_core/env";
+import { ENV } from "../_core/env";
 
 const ALIPAY_GATEWAY = "https://openapi.alipay.com/gateway.do";
 

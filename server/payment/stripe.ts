@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import type { Express, Request, Response } from "express";
 import express from "express";
-import { getOrderById, updateOrderStatus, updateOrderStripeIds } from "./db";
+import { getOrderById, updateOrderStatus, updateOrderStripeIds } from "../db";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-03-31.basil" as any,
