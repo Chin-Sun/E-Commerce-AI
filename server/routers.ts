@@ -170,6 +170,7 @@ const orderRouter = router({
         shippingZip: z.string().min(1),
         shippingCountry: z.string().min(1),
         notes: z.string().optional(),
+        currency: z.string().default("CNY"),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -348,7 +349,7 @@ const adminRouter = router({
           descMs: z.string().optional(),
           specs: z.record(z.string(), z.string()).optional(),
           price: z.string(),
-          currency: z.string().default("USD"),
+          currency: z.string().default("CNY"),
           stock: z.number().default(0),
           images: z.array(z.string()).optional(),
           isActive: z.boolean().default(true),

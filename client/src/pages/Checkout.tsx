@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useI18n } from "@/contexts/I18nContext";
-import { formatPrice } from "@/lib/i18n";
+import { formatPrice, LOCALE_CURRENCY_CODE } from "@/lib/i18n";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLoginModal } from "@/contexts/LoginModalContext";
 import { trpc } from "@/lib/trpc";
@@ -87,9 +87,11 @@ export default function Checkout() {
       setForm(prev => ({ ...prev, [field]: e.target.value }));
     };
 
+  const currencyCode = LOCALE_CURRENCY_CODE[locale];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    createOrder.mutate(form);
+    createOrder.mutate({ ...form, currency: currencyCode });
   };
 
   const fields: { key: keyof ShippingForm; label: string; type?: string }[] = [
@@ -112,7 +114,7 @@ export default function Checkout() {
           open={!!pendingOrder}
           orderId={pendingOrder.id}
           amount={pendingOrder.amount}
-          currency="USD"
+          currency={currencyCode}
           onClose={() => setPendingOrder(null)}
           onStripeSuccess={() => navigate(`/orders/${pendingOrder.id}`)}
         />

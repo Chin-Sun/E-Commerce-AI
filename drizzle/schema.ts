@@ -60,7 +60,7 @@ export const products = mysqlTable("products", {
   descMs: text("descMs"),
   specs: json("specs").$type<Record<string, string>>(),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
-  currency: varchar("currency", { length: 3 }).default("USD").notNull(),
+  currency: varchar("currency", { length: 3 }).default("CNY").notNull(),
   stock: int("stock").default(0).notNull(),
   images: json("images").$type<string[]>(),
   isActive: boolean("isActive").default(true).notNull(),
@@ -98,7 +98,7 @@ export const orders = mysqlTable("orders", {
     .default("pending")
     .notNull(),
   totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),
-  currency: varchar("currency", { length: 3 }).default("USD").notNull(),
+  currency: varchar("currency", { length: 3 }).default("CNY").notNull(),
   shippingName: varchar("shippingName", { length: 256 }),
   shippingEmail: varchar("shippingEmail", { length: 320 }),
   shippingPhone: varchar("shippingPhone", { length: 32 }),

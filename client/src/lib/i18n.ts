@@ -14,6 +14,13 @@ export const LOCALE_CURRENCY: Record<Locale, string> = {
   ms: "RM",
 };
 
+export const LOCALE_CURRENCY_CODE: Record<Locale, string> = {
+  zh:   "CNY",
+  en:   "USD",
+  zhTw: "CNY",
+  ms:   "MYR",
+};
+
 export function formatPrice(amount: number, locale: Locale): string {
   return `${LOCALE_CURRENCY[locale]}${amount.toFixed(2)}`;
 }
