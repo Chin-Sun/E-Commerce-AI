@@ -130,6 +130,19 @@ export const orderItems = mysqlTable("orderItems", {
 
 export type OrderItem = typeof orderItems.$inferSelect;
 
+/* ─── Chat Sessions ─── */
+export type StoredMessage = { role: "user" | "assistant"; content: string };
+
+export const chatSessions = mysqlTable("chatSessions", {
+  id:        int("id").autoincrement().primaryKey(),
+  userId:    int("userId").notNull().unique(),
+  messages:  json("messages").$type<StoredMessage[]>().notNull(),
+  summary:   text("summary"),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ChatSession = typeof chatSessions.$inferSelect;
+
 /* ─── Phone Verifications ─── */
 export const phoneVerifications = mysqlTable("phoneVerifications", {
   id: int("id").autoincrement().primaryKey(),

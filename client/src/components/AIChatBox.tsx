@@ -2,8 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { Loader2, Send, User, Sparkles } from "lucide-react";
+import { Loader2, Send, User, Sparkles, Mic, MicOff } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { toast } from "sonner";
 import { Streamdown } from "streamdown";
 
 /**
@@ -57,6 +58,12 @@ export type AIChatBoxProps = {
    * Click to send directly
    */
   suggestedPrompts?: string[];
+
+  /**
+   * If provided, a mic button appears. Called with the recorded audio blob;
+   * should return the transcribed text. The text is then auto-sent.
+   */
+  onTranscribe?: (blob: Blob) => Promise<string>;
 };
 
 /**
@@ -119,8 +126,13 @@ export function AIChatBox({
   height = "600px",
   emptyStateMessage = "Start a conversation with AI",
   suggestedPrompts,
+  onTranscribe,
 }: AIChatBoxProps) {
   const [input, setInput] = useState("");
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputAreaRef = useRef<HTMLFormElement>(null);
@@ -163,6 +175,38 @@ export function AIChatBox({
           behavior: "smooth",
         });
       });
+    }
+  };
+
+  const handleMicClick = async () => {
+    if (isRecording) {
+      mediaRecorderRef.current?.stop();
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      audioChunksRef.current = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
+      recorder.onstop = async () => {
+        stream.getTracks().forEach(t => t.stop());
+        setIsRecording(false);
+        const blob = new Blob(audioChunksRef.current, { type: recorder.mimeType || "audio/webm" });
+        setIsTranscribing(true);
+        try {
+          const text = await onTranscribe!(blob);
+          if (text.trim()) onSendMessage(text.trim());
+        } catch {
+          toast.error("Voice transcription failed");
+        } finally {
+          setIsTranscribing(false);
+        }
+      };
+      recorder.start();
+      mediaRecorderRef.current = recorder;
+      setIsRecording(true);
+    } catch {
+      toast.error("Microphone access denied");
     }
   };
 
@@ -318,10 +362,30 @@ export function AIChatBox({
           className="flex-1 max-h-32 resize-none min-h-9"
           rows={1}
         />
+        {onTranscribe && (
+          <Button
+            type="button"
+            size="icon"
+            disabled={isLoading || isTranscribing}
+            onClick={handleMicClick}
+            className={cn(
+              "shrink-0 h-[38px] w-[38px]",
+              isRecording && "bg-red-500 hover:bg-red-600 text-white animate-pulse"
+            )}
+          >
+            {isTranscribing ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : isRecording ? (
+              <MicOff className="size-4" />
+            ) : (
+              <Mic className="size-4" />
+            )}
+          </Button>
+        )}
         <Button
           type="submit"
           size="icon"
-          disabled={!input.trim() || isLoading}
+          disabled={!input.trim() || isLoading || isRecording || isTranscribing}
           className="shrink-0 h-[38px] w-[38px]"
         >
           {isLoading ? (

@@ -343,3 +343,101 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
 
   return (await response.json()) as InvokeResult;
 }
+
+export type LLMStreamChunk =
+  | { type: "content"; text: string }
+  | { type: "tool_call_delta"; index: number; id?: string; name?: string; args?: string }
+  | { type: "done"; finish_reason: string };
+
+export async function* invokeLLMStream(
+  params: Pick<InvokeParams, "messages" | "tools" | "toolChoice">
+): AsyncGenerator<LLMStreamChunk> {
+  assertApiKey();
+
+  const payload: Record<string, unknown> = {
+    model: "deepseek-chat",
+    messages: params.messages.map(normalizeMessage),
+    max_tokens: 4096,
+    stream: true,
+  };
+
+  if (params.tools?.length) payload.tools = params.tools;
+
+  const normalized = normalizeToolChoice(params.toolChoice, params.tools);
+  if (normalized) payload.tool_choice = normalized;
+
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${ENV.deepseekApiKey}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(
+      `LLM stream failed: ${response.status} ${response.statusText} – ${errorText}`
+    );
+  }
+
+  const reader = response.body!.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop() ?? "";
+
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      const raw = line.slice(6).trim();
+      if (raw === "[DONE]") return;
+
+      let chunk: {
+        choices: Array<{
+          delta: {
+            content?: string;
+            tool_calls?: Array<{
+              index: number;
+              id?: string;
+              type?: string;
+              function?: { name?: string; arguments?: string };
+            }>;
+          };
+          finish_reason: string | null;
+        }>;
+      };
+      try { chunk = JSON.parse(raw); } catch { continue; }
+
+      const choice = chunk.choices[0];
+      if (!choice) continue;
+
+      if (choice.finish_reason) {
+        yield { type: "done", finish_reason: choice.finish_reason };
+        return;
+      }
+
+      const delta = choice.delta;
+      if (delta.content) {
+        yield { type: "content", text: delta.content };
+      }
+      if (delta.tool_calls) {
+        for (const tc of delta.tool_calls) {
+          yield {
+            type: "tool_call_delta",
+            index: tc.index,
+            id: tc.id,
+            name: tc.function?.name,
+            args: tc.function?.arguments,
+          };
+        }
+      }
+    }
+  }
+}

@@ -10,6 +10,7 @@ import { createCheckoutSession } from "./stripe";
 import { sendSmsOtp } from "./sms";
 import { storagePut } from "./storage";
 import { runAgentLoop, defaultAdapter } from "./agent";
+import { transcribeAudioBuffer } from "./agent/voiceTranscription";
 import {
   createNativeOrder as createWechatPayOrder,
   isWechatPayConfigured,
@@ -420,17 +421,20 @@ const adminRouter = router({
 /* ─── AI Router ─── */
 const aiRouter = router({
   chat: protectedProcedure
-    .input(
-      z.object({
-        messages: z.array(
-          z.object({
-            role: z.enum(["user", "assistant", "system"]),
-            content: z.string(),
-          })
-        ),
-      })
-    )
-    .mutation(({ input }) => runAgentLoop(input.messages, defaultAdapter)),
+    .input(z.object({ message: z.string().min(1).max(4000) }))
+    .mutation(({ ctx, input }) =>
+      runAgentLoop(ctx.user!.id, input.message, defaultAdapter)
+    ),
+  transcribe: protectedProcedure
+    .input(z.object({ audioBase64: z.string(), mimeType: z.string() }))
+    .mutation(async ({ input }) => {
+      const buffer = Buffer.from(input.audioBase64, "base64");
+      const result = await transcribeAudioBuffer(buffer, input.mimeType);
+      if ("error" in result) {
+        throw new TRPCError({ code: "BAD_REQUEST", message: result.error });
+      }
+      return { text: result.text };
+    }),
 });
 
 /* ─── Root Router ─── */

@@ -1,6 +1,7 @@
-import { invokeLLM, type Message } from "../_core/llm";
+import { invokeLLM, invokeLLMStream, type Message, type ToolCall } from "../_core/llm";
 import { compareService } from "./compareService";
 import { AGENT_TOOLS, executeTool } from "./tools";
+import { loadSession, buildLLMContext, appendAndPersist } from "./conversationStore";
 import type {
   AgentResponse,
   AgentRound,
@@ -78,9 +79,13 @@ function buildResponse(state: AgentState): AgentResponse {
 }
 
 export async function runAgentLoop(
-  userMessages: Message[],
+  userId: number,
+  newUserMessage: string,
   adapter: ProductSearchAdapter
 ): Promise<AgentResponse> {
+  const session      = await loadSession(userId);
+  const userMessages = buildLLMContext(session, newUserMessage);
+
   let state: AgentState = {
     phase: "thinking",
     messages: [SYSTEM_MESSAGE, ...userMessages],
@@ -169,13 +174,15 @@ export async function runAgentLoop(
     if (clarRound) {
       const clarTr = toolResults.find(t => t.toolName === "request_clarification")!;
       const clarOutput = clarTr.output as { question: string; anchors: ProductSummary[] };
-      return buildResponse({
+      const clarResponse = buildResponse({
         ...state,
         rounds: [...state.rounds, clarRound],
         anchors: clarOutput.anchors,
         status: "NEED_CLARIFICATION",
         finalMessage: clarOutput.question,
       });
+      appendAndPersist(userId, newUserMessage, clarResponse.message, session);
+      return clarResponse;
     }
 
     // Collect products and comparison from this iteration
@@ -211,5 +218,10 @@ export async function runAgentLoop(
     };
   }
 
-  return buildResponse(state);
+  const response = buildResponse(state);
+
+  // fire-and-forget: does not block response to client
+  appendAndPersist(userId, newUserMessage, response.message, session);
+
+  return response;
 }

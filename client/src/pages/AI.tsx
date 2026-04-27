@@ -30,6 +30,25 @@ export default function AI() {
   // Track whether auto-compare has fired for the current product set
   const autoComparedRef = useRef(false);
 
+  const transcribeMutation = trpc.ai.transcribe.useMutation();
+
+  const handleTranscribe = async (blob: Blob): Promise<string> => {
+    const base64 = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        resolve(result.split(",")[1] ?? result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+    const result = await transcribeMutation.mutateAsync({
+      audioBase64: base64,
+      mimeType: blob.type || "audio/webm",
+    });
+    return result.text;
+  };
+
   const chatMutation = trpc.ai.chat.useMutation({
     onSuccess: (resp: AgentResponse) => {
       setMessages(prev => [
@@ -129,6 +148,7 @@ export default function AI() {
                 emptyStateMessage={t("ai.emptyState")}
                 suggestedPrompts={suggestedPrompts}
                 height="calc(100vh - 220px)"
+                onTranscribe={handleTranscribe}
               />
             </div>
 

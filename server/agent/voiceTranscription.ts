@@ -25,7 +25,7 @@
  * });
  * ```
  */
-import { ENV } from "./env";
+import { ENV } from "../_core/env";
 
 export type TranscribeOptions = {
   audioUrl: string; // URL to the audio file (e.g., S3 URL)
@@ -68,6 +68,55 @@ export type TranscriptionError = {
     | "SERVICE_ERROR";
   details?: string;
 };
+
+/**
+ * Transcribe an in-memory audio buffer directly (skips URL download step).
+ */
+export async function transcribeAudioBuffer(
+  buffer: Buffer,
+  mimeType: string,
+  opts?: { language?: string; prompt?: string }
+): Promise<TranscriptionResponse | TranscriptionError> {
+  if (!ENV.forgeApiUrl) {
+    return { error: "Voice transcription service is not configured", code: "SERVICE_ERROR", details: "BUILT_IN_FORGE_API_URL is not set" };
+  }
+  if (!ENV.forgeApiKey) {
+    return { error: "Voice transcription service authentication is missing", code: "SERVICE_ERROR", details: "BUILT_IN_FORGE_API_KEY is not set" };
+  }
+
+  const sizeMB = buffer.length / (1024 * 1024);
+  if (sizeMB > 16) {
+    return { error: "Audio file exceeds maximum size limit", code: "FILE_TOO_LARGE", details: `File size is ${sizeMB.toFixed(2)}MB, maximum allowed is 16MB` };
+  }
+
+  const formData = new FormData();
+  const filename = `audio.${getFileExtension(mimeType)}`;
+  formData.append("file", new Blob([new Uint8Array(buffer)], { type: mimeType }), filename);
+  formData.append("model", "whisper-1");
+  formData.append("response_format", "verbose_json");
+  const prompt = opts?.prompt || (opts?.language ? `Transcribe the user's voice to text, the user's working language is ${getLanguageName(opts.language)}` : "Transcribe the user's voice to text");
+  formData.append("prompt", prompt);
+
+  try {
+    const baseUrl = ENV.forgeApiUrl.endsWith("/") ? ENV.forgeApiUrl : `${ENV.forgeApiUrl}/`;
+    const response = await fetch(new URL("v1/audio/transcriptions", baseUrl).toString(), {
+      method: "POST",
+      headers: { authorization: `Bearer ${ENV.forgeApiKey}`, "Accept-Encoding": "identity" },
+      body: formData,
+    });
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "");
+      return { error: "Transcription service request failed", code: "TRANSCRIPTION_FAILED", details: `${response.status} ${response.statusText}${errorText ? `: ${errorText}` : ""}` };
+    }
+    const whisperResponse = (await response.json()) as WhisperResponse;
+    if (!whisperResponse.text || typeof whisperResponse.text !== "string") {
+      return { error: "Invalid transcription response", code: "SERVICE_ERROR", details: "Transcription service returned an invalid response format" };
+    }
+    return whisperResponse;
+  } catch (error) {
+    return { error: "Voice transcription failed", code: "SERVICE_ERROR", details: error instanceof Error ? error.message : "An unexpected error occurred" };
+  }
+}
 
 /**
  * Transcribe audio to text using the internal Speech-to-Text service
