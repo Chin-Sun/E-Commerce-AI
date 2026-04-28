@@ -60,10 +60,11 @@ export type AIChatBoxProps = {
   suggestedPrompts?: string[];
 
   /**
-   * If provided, a mic button appears. Called with the recorded audio blob;
-   * should return the transcribed text. The text is then auto-sent.
+   * If provided, a mic button appears. Audio streams to /api/voice/ws via
+   * Deepgram; the final transcript is auto-sent via onSendMessage.
+   * Pass any truthy value to enable the mic button.
    */
-  onTranscribe?: (blob: Blob) => Promise<string>;
+  enableVoice?: boolean;
 };
 
 /**
@@ -126,13 +127,13 @@ export function AIChatBox({
   height = "600px",
   emptyStateMessage = "Start a conversation with AI",
   suggestedPrompts,
-  onTranscribe,
+  enableVoice,
 }: AIChatBoxProps) {
   const [input, setInput] = useState("");
   const [isRecording, setIsRecording] = useState(false);
-  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [liveTranscript, setLiveTranscript] = useState("");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+  const voiceWsRef = useRef<WebSocket | null>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputAreaRef = useRef<HTMLFormElement>(null);
@@ -181,30 +182,53 @@ export function AIChatBox({
   const handleMicClick = async () => {
     if (isRecording) {
       mediaRecorderRef.current?.stop();
+      voiceWsRef.current?.close();
+      setIsRecording(false);
+      setLiveTranscript("");
       return;
     }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
-      audioChunksRef.current = [];
-      recorder.ondataavailable = e => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
-      recorder.onstop = async () => {
-        stream.getTracks().forEach(t => t.stop());
-        setIsRecording(false);
-        const blob = new Blob(audioChunksRef.current, { type: recorder.mimeType || "audio/webm" });
-        setIsTranscribing(true);
-        try {
-          const text = await onTranscribe!(blob);
-          if (text.trim()) onSendMessage(text.trim());
-        } catch {
-          toast.error("Voice transcription failed");
-        } finally {
-          setIsTranscribing(false);
+      const proto = location.protocol === "https:" ? "wss:" : "ws:";
+      const ws = new WebSocket(`${proto}//${location.host}/api/voice/ws`);
+      voiceWsRef.current = ws;
+
+      ws.onopen = () => {
+        const recorder = new MediaRecorder(stream);
+        ws.send(JSON.stringify({ type: "init", mimeType: recorder.mimeType || "audio/webm" }));
+        recorder.ondataavailable = e => {
+          if (e.data.size > 0 && ws.readyState === WebSocket.OPEN) ws.send(e.data);
+        };
+        recorder.onstop = () => stream.getTracks().forEach(t => t.stop());
+        recorder.start(250);
+        mediaRecorderRef.current = recorder;
+        setIsRecording(true);
+      };
+
+      ws.onmessage = e => {
+        const msg = JSON.parse(e.data as string) as
+          | { type: "interim" | "partial"; text: string }
+          | { type: "final"; text: string }
+          | { type: "error"; message: string };
+
+        if (msg.type === "interim" || msg.type === "partial") {
+          setLiveTranscript(msg.text);
+        } else if (msg.type === "final" && msg.text.trim()) {
+          setLiveTranscript("");
+          mediaRecorderRef.current?.stop();
+          ws.close();
+          setIsRecording(false);
+          onSendMessage(msg.text.trim());
+        } else if (msg.type === "error") {
+          toast.error("Voice error: " + msg.message);
+          setIsRecording(false);
         }
       };
-      recorder.start();
-      mediaRecorderRef.current = recorder;
-      setIsRecording(true);
+
+      ws.onerror = () => {
+        toast.error("Voice connection failed");
+        setIsRecording(false);
+      };
     } catch {
       toast.error("Microphone access denied");
     }
@@ -355,37 +379,32 @@ export function AIChatBox({
       >
         <Textarea
           ref={textareaRef}
-          value={input}
-          onChange={e => setInput(e.target.value)}
+          value={isRecording && liveTranscript ? liveTranscript : input}
+          readOnly={isRecording}
+          onChange={e => { if (!isRecording) setInput(e.target.value); }}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder}
+          placeholder={isRecording ? "Listening…" : placeholder}
           className="flex-1 max-h-32 resize-none min-h-9"
           rows={1}
         />
-        {onTranscribe && (
+        {enableVoice && (
           <Button
             type="button"
             size="icon"
-            disabled={isLoading || isTranscribing}
+            disabled={isLoading}
             onClick={handleMicClick}
             className={cn(
               "shrink-0 h-[38px] w-[38px]",
               isRecording && "bg-red-500 hover:bg-red-600 text-white animate-pulse"
             )}
           >
-            {isTranscribing ? (
-              <Loader2 className="size-4 animate-spin" />
-            ) : isRecording ? (
-              <MicOff className="size-4" />
-            ) : (
-              <Mic className="size-4" />
-            )}
+            {isRecording ? <MicOff className="size-4" /> : <Mic className="size-4" />}
           </Button>
         )}
         <Button
           type="submit"
           size="icon"
-          disabled={!input.trim() || isLoading || isRecording || isTranscribing}
+          disabled={!input.trim() || isLoading || isRecording}
           className="shrink-0 h-[38px] w-[38px]"
         >
           {isLoading ? (

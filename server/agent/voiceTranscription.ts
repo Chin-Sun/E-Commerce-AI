@@ -1,3 +1,78 @@
+import type WebSocket from "ws";
+import { DefaultDeepgramClient } from "@deepgram/sdk";
+import type { V1Socket } from "@deepgram/sdk/listen/v1";
+import { ENV } from "../_core/env";
+
+export type VoiceStreamMessage =
+  | { type: "interim"; text: string }
+  | { type: "partial"; text: string }
+  | { type: "final"; text: string }
+  | { type: "error"; message: string };
+
+/**
+ * Open a Deepgram streaming connection and proxy audio chunks from the client
+ * WebSocket to Deepgram, forwarding transcript events back to the client.
+ *
+ * Protocol:
+ *   client → server: binary audio chunks (MediaRecorder timeslice output)
+ *   server → client: VoiceStreamMessage JSON strings
+ */
+export async function startDeepgramProxy(clientWs: WebSocket, mimeType: string) {
+  const deepgram = new DefaultDeepgramClient({ apiKey: ENV.deepgramApiKey });
+  const encoding = mimeType.includes("webm") ? "webm-opus" : "linear16";
+
+  const socket = await deepgram.listen.v1.connect({
+    Authorization: `Token ${ENV.deepgramApiKey}`,
+    model: "nova-2",
+    language: "multi",
+    punctuate: "true",
+    interim_results: "true",
+    utterance_end_ms: "1000",
+    vad_events: "true",
+    encoding,
+  });
+
+  const send = (msg: VoiceStreamMessage) => {
+    if (clientWs.readyState === clientWs.OPEN) {
+      clientWs.send(JSON.stringify(msg));
+    }
+  };
+
+  socket.on("open", () => {
+    clientWs.on("message", (data: Buffer | ArrayBuffer | Buffer[]) => {
+      try {
+        const buf = Buffer.isBuffer(data) ? data : Buffer.from(data as ArrayBuffer);
+        socket.sendMedia(buf);
+      } catch {
+        // Deepgram socket may have closed
+      }
+    });
+  });
+
+  socket.on("message", (msg: V1Socket.Response) => {
+    if (msg.type !== "Results") return;
+    const text = msg.channel?.alternatives?.[0]?.transcript ?? "";
+    if (!text) return;
+
+    if (msg.is_final && msg.speech_final) {
+      send({ type: "final", text });
+    } else if (msg.is_final) {
+      send({ type: "partial", text });
+    } else {
+      send({ type: "interim", text });
+    }
+  });
+
+  socket.on("error", (err: Error) => {
+    send({ type: "error", message: err.message });
+    clientWs.close();
+  });
+
+  clientWs.on("close", () => {
+    try { socket.close(); } catch { /* already closed */ }
+  });
+}
+
 /**
  * Voice transcription helper using internal Speech-to-Text service
  *
@@ -25,8 +100,6 @@
  * });
  * ```
  */
-import { ENV } from "../_core/env";
-
 export type TranscribeOptions = {
   audioUrl: string; // URL to the audio file (e.g., S3 URL)
   language?: string; // Optional: specify language code (e.g., "en", "es", "zh")

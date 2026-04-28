@@ -29,24 +29,6 @@ export default function AI() {
   const abortRef                        = useRef<AbortController | null>(null);
   const autoComparedRef                 = useRef(false);
 
-  const transcribeMutation = trpc.ai.transcribe.useMutation();
-
-  const handleTranscribe = async (blob: Blob): Promise<string> => {
-    const base64 = await new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        resolve(result.split(",")[1] ?? result);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-    const result = await transcribeMutation.mutateAsync({
-      audioBase64: base64,
-      mimeType: blob.type || "audio/webm",
-    });
-    return result.text;
-  };
 
   const handleSend = useCallback(async (content: string) => {
     if (!isAuthenticated) { openLoginModal(); return; }
@@ -209,7 +191,7 @@ export default function AI() {
                 emptyStateMessage={t("ai.emptyState")}
                 suggestedPrompts={suggestedPrompts}
                 height="calc(100vh - 220px)"
-                onTranscribe={handleTranscribe}
+                enableVoice
               />
             </div>
 

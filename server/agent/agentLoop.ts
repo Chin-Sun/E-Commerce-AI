@@ -24,7 +24,8 @@ Rules:
    - You have shown 2 or more products and the user has not committed to one
    - The user says: "which one", "not sure", "help me decide", "差不多", "哪个", "undecided", "比较"
 4. Be concise. Mention product IDs (e.g. "Product #12") in your text so the UI can render cards.
-5. When you have enough information, stop calling tools and give a final answer.`,
+5. When you have enough information, stop calling tools and give a final answer.
+6. PARALLEL TOOLS: When multiple independent lookups are needed (e.g. details on product #5 AND #7, or two category searches), call ALL relevant tools in a single response — do not wait for one result before calling the next.`,
 };
 
 function extractProducts(toolResults: ToolResult[]): ProductSummary[] {
