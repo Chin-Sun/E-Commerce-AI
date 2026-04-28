@@ -225,3 +225,154 @@ export async function runAgentLoop(
 
   return response;
 }
+
+/* ── Streaming variant ──────────────────────────────────────────────────────── */
+
+export type AgentStreamEvent =
+  | { type: "tool_start"; tools: string[] }
+  | { type: "token"; content: string }
+  | { type: "result"; data: AgentResponse }
+  | { type: "error"; message: string };
+
+export async function* runAgentLoopStream(
+  userId: number,
+  newUserMessage: string,
+  adapter: ProductSearchAdapter
+): AsyncGenerator<AgentStreamEvent> {
+  const session      = await loadSession(userId);
+  const userMessages = buildLLMContext(session, newUserMessage);
+
+  let state: AgentState = {
+    phase: "thinking",
+    messages: [SYSTEM_MESSAGE, ...userMessages],
+    iterations: 0,
+    maxIterations: 5,
+    rounds: [],
+    collectedProducts: [],
+    status: "PENDING",
+  };
+
+  while (state.phase !== "done" && state.phase !== "error") {
+    // ── Stream one LLM turn ────────────────────────────────────────────────────
+    let accContent = "";
+    let isToolCallTurn = false;
+    // Map from index → accumulated ToolCall (built up from deltas)
+    const tcMap = new Map<number, { id: string; name: string; args: string }>();
+
+    for await (const chunk of invokeLLMStream({ messages: state.messages, tools: AGENT_TOOLS })) {
+      if (chunk.type === "content" && chunk.text) {
+        accContent += chunk.text;
+        if (!isToolCallTurn) {
+          yield { type: "token", content: chunk.text };
+        }
+      } else if (chunk.type === "tool_call_delta") {
+        isToolCallTurn = true;
+        const entry = tcMap.get(chunk.index) ?? { id: "", name: "", args: "" };
+        if (chunk.id)   entry.id   += chunk.id;
+        if (chunk.name) entry.name += chunk.name;
+        if (chunk.args) entry.args += chunk.args;
+        tcMap.set(chunk.index, entry);
+      }
+      // "done" chunk just signals stream end — loop exits naturally
+    }
+
+    if (!isToolCallTurn) {
+      // ── Final text response — already streamed token by token ────────────────
+      state = {
+        ...state,
+        phase: "done",
+        status: "DONE",
+        finalMessage: accContent,
+        rounds: [
+          ...state.rounds,
+          { thought: accContent, action: null, observation: null, comparison: null, status: "DONE" },
+        ],
+      };
+      break;
+    }
+
+    // ── Tool call turn ─────────────────────────────────────────────────────────
+    state = { ...state, phase: "acting", iterations: state.iterations + 1 };
+    if (state.iterations > state.maxIterations) {
+      state = { ...state, phase: "error", status: "DONE", finalMessage: accContent };
+      break;
+    }
+
+    const toolCalls: ToolCall[] = Array.from(tcMap.entries())
+      .sort(([a], [b]) => a - b)
+      .map(([, tc]) => ({
+        id: tc.id,
+        type: "function" as const,
+        function: { name: tc.name, arguments: tc.args },
+      }));
+
+    yield { type: "tool_start", tools: toolCalls.map(tc => tc.function.name) };
+
+    const toolResults = await Promise.all(
+      toolCalls.map(tc => executeTool(tc, adapter))
+    );
+
+    // Check for clarification early exit
+    const clarTr = toolResults.find(t => t.toolName === "request_clarification");
+    if (clarTr) {
+      const clarOutput = clarTr.output as { question: string; anchors: ProductSummary[] };
+      const clarState: AgentState = {
+        ...state,
+        anchors: clarOutput.anchors,
+        status: "NEED_CLARIFICATION",
+        finalMessage: clarOutput.question,
+        rounds: [
+          ...state.rounds,
+          {
+            thought: accContent,
+            action: { tool: "request_clarification", params: {} },
+            observation: clarOutput,
+            comparison: null,
+            status: "NEED_CLARIFICATION",
+          },
+        ],
+      };
+      const response = buildResponse(clarState);
+      appendAndPersist(userId, newUserMessage, response.message, session);
+      yield { type: "result", data: response };
+      return;
+    }
+
+    // Collect products and comparison
+    const newProducts = extractProducts(toolResults);
+    const compareTr   = toolResults.find(t => t.toolName === "compare_products");
+    const compareResult = compareTr?.output as ComparisonResult | undefined;
+
+    const newRounds: AgentRound[] = toolCalls.map((tc, i) => {
+      const tr = toolResults[i];
+      let comparison: string | null = null;
+      if (tr.toolName === "compare_products" && tr.output) {
+        const cr = tr.output as ComparisonResult;
+        comparison = compareService.summarize(compareService.diff(cr.products));
+      }
+      const params = JSON.parse(tc.function.arguments) as Record<string, unknown>;
+      return { thought: accContent, action: { tool: tr.toolName, params }, observation: tr.output, comparison, status: "PENDING" as AgentStatus };
+    });
+
+    state = {
+      ...state,
+      phase: "thinking",
+      messages: [
+        ...state.messages,
+        { role: "assistant", content: accContent, ...(toolCalls.length ? { tool_calls: toolCalls } : {}) } as Message,
+        ...toolResults.map(tr => ({
+          role: "tool" as const,
+          tool_call_id: tr.toolCallId,
+          content: JSON.stringify(tr.output),
+        })),
+      ],
+      rounds: [...state.rounds, ...newRounds],
+      collectedProducts: deduplicateById([...state.collectedProducts, ...newProducts]),
+      comparison: compareResult ?? state.comparison,
+    };
+  }
+
+  const response = buildResponse(state);
+  appendAndPersist(userId, newUserMessage, response.message, session);
+  yield { type: "result", data: response };
+}

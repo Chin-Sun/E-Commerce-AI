@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import StoreLayout from "@/components/StoreLayout";
@@ -10,6 +10,7 @@ import { useLoginModal } from "@/contexts/LoginModalContext";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import type { AgentResponse, ProductSummary } from "../../../server/agent/types";
+import type { AgentStreamEvent } from "../../../server/agent/agentLoop";
 
 type SidePanelData = Pick<AgentResponse, "products" | "anchors" | "comparison" | "status">;
 
@@ -18,17 +19,15 @@ export default function AI() {
   const { isAuthenticated } = useAuth();
   const { openLoginModal } = useLoginModal();
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "system",
-      content:
-        "You are a proactive hardware product expert. Reply in the user's language. " +
-        "Search products before answering. Compare proactively when the user is undecided.",
-    },
-  ]);
-  const [sideData, setSideData] = useState<SidePanelData | null>(null);
-  // Track whether auto-compare has fired for the current product set
-  const autoComparedRef = useRef(false);
+  const [messages, setMessages]         = useState<Message[]>([]);
+  const [sideData, setSideData]         = useState<SidePanelData | null>(null);
+  const [isStreaming, setIsStreaming]   = useState(false);
+  const [toolStatus, setToolStatus]     = useState<string | null>(null);
+  // streaming assistant message built token-by-token
+  const streamingRef                    = useRef("");
+  const [streamingContent, setStreamingContent] = useState("");
+  const abortRef                        = useRef<AbortController | null>(null);
+  const autoComparedRef                 = useRef(false);
 
   const transcribeMutation = trpc.ai.transcribe.useMutation();
 
@@ -49,48 +48,104 @@ export default function AI() {
     return result.text;
   };
 
-  const chatMutation = trpc.ai.chat.useMutation({
-    onSuccess: (resp: AgentResponse) => {
-      setMessages(prev => [
-        ...prev,
-        { role: "assistant", content: resp.message },
-      ]);
-      setSideData({
-        products: resp.products,
-        anchors: resp.anchors,
-        comparison: resp.comparison,
-        status: resp.status,
+  const handleSend = useCallback(async (content: string) => {
+    if (!isAuthenticated) { openLoginModal(); return; }
+    if (isStreaming) return;
+
+    // Cancel any in-flight request
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    // Optimistic user message
+    setMessages(prev => [...prev, { role: "user", content }]);
+    streamingRef.current = "";
+    setStreamingContent("");
+    setToolStatus(null);
+    setIsStreaming(true);
+
+    try {
+      const response = await fetch("/api/ai/stream", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ message: content }),
+        signal: controller.signal,
       });
-      if (resp.products && resp.products.length >= 2) {
-        autoComparedRef.current = false;
+
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
       }
-    },
-    onError: (err) => {
-      // Remove the optimistic user message on failure
+
+      const reader = response.body!.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          const raw = line.slice(6).trim();
+          if (raw === "[DONE]") break;
+
+          let event: AgentStreamEvent;
+          try { event = JSON.parse(raw) as AgentStreamEvent; } catch { continue; }
+
+          if (event.type === "token") {
+            streamingRef.current += event.content;
+            setStreamingContent(streamingRef.current);
+          } else if (event.type === "tool_start") {
+            setToolStatus(event.tools.join(", "));
+          } else if (event.type === "result") {
+            const resp = event.data;
+            setMessages(prev => [
+              ...prev,
+              { role: "assistant", content: resp.message },
+            ]);
+            streamingRef.current = "";
+            setStreamingContent("");
+            setToolStatus(null);
+            setSideData({
+              products: resp.products,
+              anchors: resp.anchors,
+              comparison: resp.comparison,
+              status: resp.status,
+            });
+            if (resp.products && resp.products.length >= 2) {
+              autoComparedRef.current = false;
+            }
+          } else if (event.type === "error") {
+            throw new Error(event.message);
+          }
+        }
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name === "AbortError") return;
+      // Remove optimistic user message
       setMessages(prev => prev.slice(0, -1));
-      toast.error(err.message ?? t("common.error"));
-    },
-  });
-
-  const handleSend = (content: string) => {
-    if (!isAuthenticated) {
-      openLoginModal();
-      return;
+      streamingRef.current = "";
+      setStreamingContent("");
+      setToolStatus(null);
+      toast.error(err instanceof Error ? err.message : t("common.error"));
+    } finally {
+      setIsStreaming(false);
     }
-    const updated: Message[] = [...messages, { role: "user", content }];
-    setMessages(updated);
-    chatMutation.mutate({ messages: updated });
-  };
+  }, [isAuthenticated, isStreaming, openLoginModal, t]);
 
-  // ── Hesitation detection: 8s idle after ≥2 products → auto-compare ──────────
+  // Auto-compare after 8s idle with ≥2 products
   useEffect(() => {
     if (
       !sideData?.products ||
       sideData.products.length < 2 ||
       autoComparedRef.current ||
-      chatMutation.isPending
-    )
-      return;
+      isStreaming
+    ) return;
 
     const timer = setTimeout(() => {
       if (autoComparedRef.current) return;
@@ -102,10 +157,15 @@ export default function AI() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sideData?.products]);
 
-  // Handler when user clicks an anchor card (sends its name as next message)
   const handleAnchorClick = (product: ProductSummary) => {
     handleSend(`${product.nameZh || product.nameEn} — tell me more about this product`);
   };
+
+  // Build the message list passed to AIChatBox:
+  // while streaming, append a partial assistant message
+  const displayMessages: Message[] = streamingContent
+    ? [...messages, { role: "assistant", content: streamingContent }]
+    : messages;
 
   const suggestedPrompts = [
     "Show me popular bearings",
@@ -117,7 +177,6 @@ export default function AI() {
   return (
     <StoreLayout>
       <div className="container py-6">
-        {/* Page header */}
         <div className="flex items-center gap-2.5 mb-6">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
             <Sparkles className="h-5 w-5 text-primary" />
@@ -128,7 +187,6 @@ export default function AI() {
           </div>
         </div>
 
-        {/* Login gate */}
         {!isAuthenticated ? (
           <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed border-border py-20 text-center">
             <Sparkles className="size-12 text-muted-foreground/30" />
@@ -136,14 +194,17 @@ export default function AI() {
             <Button onClick={openLoginModal}>{t("nav.login")}</Button>
           </div>
         ) : (
-          /* Two-column layout */
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
-            {/* Chat — 3/5 width on desktop */}
             <div className="lg:col-span-3">
+              {toolStatus && isStreaming && !streamingContent && (
+                <p className="mb-2 text-xs text-muted-foreground animate-pulse px-1">
+                  {toolStatus.replace(/_/g, " ")}…
+                </p>
+              )}
               <AIChatBox
-                messages={messages}
+                messages={displayMessages}
                 onSendMessage={handleSend}
-                isLoading={chatMutation.isPending}
+                isLoading={isStreaming && !streamingContent}
                 placeholder={t("ai.placeholder")}
                 emptyStateMessage={t("ai.emptyState")}
                 suggestedPrompts={suggestedPrompts}
@@ -152,7 +213,6 @@ export default function AI() {
               />
             </div>
 
-            {/* Side panel — 2/5 width on desktop, below on mobile */}
             <div className="lg:col-span-2">
               <div
                 className="rounded-lg border border-border bg-card overflow-hidden"

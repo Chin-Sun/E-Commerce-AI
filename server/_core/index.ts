@@ -10,6 +10,9 @@ import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { registerStripeWebhook } from "../stripe";
+import { sdk } from "./sdk";
+import { runAgentLoopStream } from "../agent";
+import { defaultAdapter } from "../agent";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -53,6 +56,43 @@ async function startServer() {
       createContext,
     })
   );
+
+  // SSE streaming endpoint for AI chat
+  app.post("/api/ai/stream", async (req, res) => {
+    let user: Awaited<ReturnType<typeof sdk.authenticateRequest>> | null = null;
+    try {
+      user = await sdk.authenticateRequest(req);
+    } catch {
+      res.status(401).json({ error: "Unauthorized" });
+      return;
+    }
+
+    const { message } = req.body as { message?: string };
+    if (!message || typeof message !== "string" || !message.trim()) {
+      res.status(400).json({ error: "message is required" });
+      return;
+    }
+
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
+    res.flushHeaders();
+
+    const send = (event: object) => {
+      res.write(`data: ${JSON.stringify(event)}\n\n`);
+    };
+
+    try {
+      for await (const event of runAgentLoopStream(user.id, message.trim(), defaultAdapter)) {
+        send(event);
+      }
+    } catch (err) {
+      send({ type: "error", message: String(err) });
+    } finally {
+      res.write("data: [DONE]\n\n");
+      res.end();
+    }
+  });
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
