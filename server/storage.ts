@@ -1,5 +1,11 @@
 import OSS from "ali-oss";
+import path from "path";
+import fs from "fs/promises";
 import { ENV } from "./_core/env";
+
+function isOssConfigured(): boolean {
+  return !!(ENV.ossAccessKeyId && ENV.ossAccessKeySecret && ENV.ossBucket && ENV.ossRegion);
+}
 
 function getClient(): OSS {
   return new OSS({
@@ -22,6 +28,14 @@ export async function storagePut(
   contentType = "application/octet-stream"
 ): Promise<{ key: string; url: string }> {
   const key = relKey.replace(/^\/+/, "");
+
+  if (!isOssConfigured()) {
+    const dest = path.join(process.cwd(), "uploads", key);
+    await fs.mkdir(path.dirname(dest), { recursive: true });
+    await fs.writeFile(dest, Buffer.isBuffer(data) ? data : Buffer.from(data as any));
+    return { key, url: `/uploads/${key}` };
+  }
+
   const client = getClient();
   const result = await client.put(
     key,

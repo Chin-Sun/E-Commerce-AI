@@ -103,6 +103,9 @@ jspm_packages/
 tmp/
 temp/
 
+# Local image uploads (dev fallback when OSS is not configured)
+uploads/
+
 # Database
 *.db
 *.sqlite

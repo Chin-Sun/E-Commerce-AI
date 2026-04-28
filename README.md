@@ -83,6 +83,12 @@ node server/seed.mjs
 
 # Start dev server (hot reload, port 3000)
 pnpm dev
+
+# Start prod server (running until stop manually)
+NODE_ENV=production PORT=3000 pm2 start dist/index.js --name ecommerce
+
+# stop the prod server
+pnpm stop
 ```
 
 ---
@@ -181,11 +187,6 @@ docker compose logs -f app
 
 Wait for the `db` container to be healthy (check `docker compose ps`), then:
 
-```bash
-# Run inside the app container
-docker compose exec app sh -c "DATABASE_URL=$(grep DATABASE_URL /proc/1/environ | tr '\0' '\n' | grep DATABASE_URL | cut -d= -f2-) npx drizzle-kit migrate"
-```
-
 Or, simpler — run from the host with the composed DATABASE_URL:
 
 ```bash
@@ -196,14 +197,10 @@ pnpm db:push
 
 ### Step 7 — Seed initial data
 
-```bash
-docker compose exec app node server/seed.mjs
-```
-
 Or from the host (requires Node + pnpm installed on the server):
 
 ```bash
-DATABASE_URL="mysql://appuser:apppassword@127.0.0.1:3306/hardware_ecommerce" node server/seed.mjs
+node server/seed.mjs
 ```
 
 ### Step 8 — Set up reverse proxy (HTTPS)
@@ -219,7 +216,13 @@ In 1Panel go to **Website → Nginx** (or use the built-in reverse proxy feature
 ```bash
 cd /opt/hardware_ecommerce
 git pull
-docker compose up -d --build app
+```
+
+### New Dependencies
+
+```bash
+pnpm add ws @deepgram/sdk
+pnpm add -D @types/ws
 ```
 
 ---

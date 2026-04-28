@@ -9,7 +9,7 @@ export const ENV = {
   ossAccessKeySecret: process.env.OSS_ACCESS_KEY_SECRET ?? "",
   ossBucket: process.env.OSS_BUCKET ?? "",
   ossRegion: process.env.OSS_REGION ?? "",
-  ossCdnDomain: process.env.OSS_CDN_DOMAIN ?? "",
+  ossCdnDomain: (process.env.OSS_CDN_DOMAIN ?? "").replace(/^https?:\/\//, ""),
   // Google OAuth credentials
   googleClientId: process.env.GOOGLE_CLIENT_ID ?? "",
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
@@ -50,4 +50,6 @@ export const ENV = {
   forgeApiUrl: process.env.FORGE_API_URL ?? "",
   // DeepSeek API (used by llm.ts / AI agent)
   deepseekApiKey: process.env.DEEPSEEK_API_KEY ?? "",
+  // Deepgram API (used by voiceTranscription streaming)
+  deepgramApiKey: process.env.DEEPGRAM_API_KEY ?? "",
 };

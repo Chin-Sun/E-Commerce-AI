@@ -2,6 +2,8 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import net from "net";
+import path from "path";
+import { WebSocketServer } from "ws";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { registerCustomAuthRoutes } from "../auth";
@@ -11,8 +13,8 @@ import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { registerStripeWebhook } from "../stripe";
 import { sdk } from "./sdk";
-import { runAgentLoopStream } from "../agent";
-import { defaultAdapter } from "../agent";
+import { runAgentLoopStream, defaultAdapter } from "../agent";
+import { startDeepgramProxy } from "../agent/voiceTranscription";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -37,11 +39,48 @@ async function startServer() {
   const app = express();
   app.set("trust proxy", 1);
   const server = createServer(app);
+
+  // ── Voice streaming WebSocket proxy (/api/voice/ws → Deepgram) ─────────────
+  const voiceWss = new WebSocketServer({ noServer: true });
+
+  server.on("upgrade", (req, socket, head) => {
+    if (req.url !== "/api/voice/ws") {
+      socket.destroy();
+      return;
+    }
+    voiceWss.handleUpgrade(req, socket, head, ws => voiceWss.emit("connection", ws, req));
+  });
+
+  voiceWss.on("connection", async (ws, req) => {
+    let user: Awaited<ReturnType<typeof sdk.authenticateRequest>> | null = null;
+    try {
+      user = await sdk.authenticateRequest(req as Parameters<typeof sdk.authenticateRequest>[0]);
+    } catch {
+      ws.close(1008, "Unauthorized");
+      return;
+    }
+    if (!user) { ws.close(1008, "Unauthorized"); return; }
+
+    // First client message: { type: "init", mimeType: "audio/webm" }
+    ws.once("message", raw => {
+      try {
+        const { mimeType } = JSON.parse(raw.toString()) as { mimeType: string };
+        startDeepgramProxy(ws, mimeType).catch(err => {
+          ws.send(JSON.stringify({ type: "error", message: String(err) }));
+          ws.close();
+        });
+      } catch {
+        ws.close(1003, "Expected JSON init message");
+      }
+    });
+  });
   // Stripe webhook must be registered BEFORE body parsers (needs raw body)
   registerStripeWebhook(app);
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Serve locally uploaded files (fallback when OSS is not configured)
+  app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
   // Legacy Manus OAuth callback (kept for admin fallback)
   registerOAuthRoutes(app);
   // WeChat QR login routes
