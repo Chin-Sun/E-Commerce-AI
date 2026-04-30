@@ -645,10 +645,14 @@ const productSeed = [
     nameZh: "海途金龙手提振动器B款/220V",
     nameZhTw: "海途金龍手提振動器B款/220V",
     nameMs: "Penggetar Konkrit Mudah Alih Haitu Jinlong Jenis B 220V",
-    descEn: "Used when pouring concrete floors and columns to expel air bubbles and make the concrete denser. Simply plug into standard household power, insert the vibrating rod into the wet concrete and shake for a few minutes. 220V matches standard household voltage.",
-    descZh: "用在浇筑水泥地、柱子时排出气泡让水泥更结实；插上普通家用电，把振动棒插进湿水泥里晃几分钟即可；220V就是家用电电压。",
-    descZhTw: "用在澆築水泥地、柱子時排出氣泡讓水泥更結實；插上普通家用電，把振動棒插進濕水泥裡晃幾分鐘即可；220V就是家用電電壓。",
-    descMs: "Digunakan semasa menuang lantai dan tiang konkrit untuk mengeluarkan gelembung udara bagi menjadikan konkrit lebih padat. Hanya sambungkan ke bekalan elektrik rumah biasa, masukkan rod getaran ke dalam konkrit basah dan goncang beberapa minit. 220V sepadan dengan voltan elektrik rumah.",
+    descEn:
+      "Used when pouring concrete floors and columns to expel air bubbles and make the concrete denser. Simply plug into standard household power, insert the vibrating rod into the wet concrete and shake for a few minutes. 220V matches standard household voltage.",
+    descZh:
+      "用在浇筑水泥地、柱子时排出气泡让水泥更结实；插上普通家用电，把振动棒插进湿水泥里晃几分钟即可；220V就是家用电电压。",
+    descZhTw:
+      "用在澆築水泥地、柱子時排出氣泡讓水泥更結實；插上普通家用電，把振動棒插進濕水泥裡晃幾分鐘即可；220V就是家用電電壓。",
+    descMs:
+      "Digunakan semasa menuang lantai dan tiang konkrit untuk mengeluarkan gelembung udara bagi menjadikan konkrit lebih padat. Hanya sambungkan ke bekalan elektrik rumah biasa, masukkan rod getaran ke dalam konkrit basah dan goncang beberapa minit. 220V sepadan dengan voltan elektrik rumah.",
     specs: { Voltage: "220V", Type: "Portable Vibrator", Model: "B" },
     price: "95.00",
     stock: 100,
@@ -661,10 +665,14 @@ const productSeed = [
     nameZh: "海途金龙手提振动器1200W/220V",
     nameZhTw: "海途金龍手提振動器1200W/220V",
     nameMs: "Penggetar Konkrit Mudah Alih Haitu Jinlong 1200W 220V",
-    descEn: "Expels air bubbles when pouring concrete to make it denser; suitable for thicker concrete members such as beams and walls. Plug into standard household power, insert the vibrating rod into the wet concrete and shake for a few minutes. 1200W indicates power consumption; 220V is household voltage.",
-    descZh: "用在浇筑水泥地、柱子时排出气泡让水泥更结实，适合梁、墙等较厚的水泥构件；插上普通家用电，把振动棒插进湿水泥里晃几分钟即可；1200W代表耗电，220V就是家用电电压。",
-    descZhTw: "用在澆築水泥地、柱子時排出氣泡讓水泥更結實，適合梁、牆等較厚的水泥構件；插上普通家用電，把振動棒插進濕水泥裡晃幾分鐘即可；1200W代表耗電，220V就是家用電電壓。",
-    descMs: "Mengeluarkan gelembung udara semasa menuang konkrit untuk menjadikannya lebih padat; sesuai untuk anggota konkrit yang lebih tebal seperti rasuk dan dinding. Sambungkan ke bekalan elektrik rumah, masukkan rod getaran ke dalam konkrit basah dan goncang beberapa minit. 1200W menunjukkan penggunaan kuasa; 220V adalah voltan rumah.",
+    descEn:
+      "Expels air bubbles when pouring concrete to make it denser; suitable for thicker concrete members such as beams and walls. Plug into standard household power, insert the vibrating rod into the wet concrete and shake for a few minutes. 1200W indicates power consumption; 220V is household voltage.",
+    descZh:
+      "用在浇筑水泥地、柱子时排出气泡让水泥更结实，适合梁、墙等较厚的水泥构件；插上普通家用电，把振动棒插进湿水泥里晃几分钟即可；1200W代表耗电，220V就是家用电电压。",
+    descZhTw:
+      "用在澆築水泥地、柱子時排出氣泡讓水泥更結實，適合梁、牆等較厚的水泥構件；插上普通家用電，把振動棒插進濕水泥裡晃幾分鐘即可；1200W代表耗電，220V就是家用電電壓。",
+    descMs:
+      "Mengeluarkan gelembung udara semasa menuang konkrit untuk menjadikannya lebih padat; sesuai untuk anggota konkrit yang lebih tebal seperti rasuk dan dinding. Sambungkan ke bekalan elektrik rumah, masukkan rod getaran ke dalam konkrit basah dan goncang beberapa minit. 1200W menunjukkan penggunaan kuasa; 220V adalah voltan rumah.",
     specs: { Power: "1200W", Voltage: "220V", Type: "Portable Vibrator" },
     price: "130.00",
     stock: 100,
@@ -677,11 +685,20 @@ const productSeed = [
     nameZh: "鑫海途插入式振动器3.0kW/380V（圆孔）",
     nameZhTw: "鑫海途插入式振動器3.0kW/380V（圓孔）",
     nameMs: "Penggetar Konkrit Celupan Xinhaitu 3.0kW 380V (Pin Bulat)",
-    descEn: "For large-volume concrete pours on construction sites such as bridge piers and factory floors. Requires a 380V three-phase industrial power connection; insert the vibrating head into the concrete. 3.0kW is high power; 380V is industrial voltage not available in homes.",
-    descZh: "工地大体积水泥浇筑（如桥墩、厂房地面）用；需要接380V三相工业电，棒头插进水泥里振捣；3.0kW是大功率，380V是工厂用电，家庭没有。",
-    descZhTw: "工地大體積水泥澆築（如橋墩、廠房地面）用；需要接380V三相工業電，棒頭插進水泥裡振搗；3.0kW是大功率，380V是工廠用電，家庭沒有。",
-    descMs: "Untuk tuangan konkrit berjisim besar di tapak pembinaan seperti tiang jambatan dan lantai kilang. Memerlukan sambungan kuasa industri tiga fasa 380V; masukkan kepala penggetar ke dalam konkrit. 3.0kW adalah kuasa tinggi; 380V adalah voltan industri yang tidak tersedia di rumah.",
-    specs: { Power: "3.0kW", Voltage: "380V", Phase: "3-Phase", PlugType: "Round Pin" },
+    descEn:
+      "For large-volume concrete pours on construction sites such as bridge piers and factory floors. Requires a 380V three-phase industrial power connection; insert the vibrating head into the concrete. 3.0kW is high power; 380V is industrial voltage not available in homes.",
+    descZh:
+      "工地大体积水泥浇筑（如桥墩、厂房地面）用；需要接380V三相工业电，棒头插进水泥里振捣；3.0kW是大功率，380V是工厂用电，家庭没有。",
+    descZhTw:
+      "工地大體積水泥澆築（如橋墩、廠房地面）用；需要接380V三相工業電，棒頭插進水泥裡振搗；3.0kW是大功率，380V是工廠用電，家庭沒有。",
+    descMs:
+      "Untuk tuangan konkrit berjisim besar di tapak pembinaan seperti tiang jambatan dan lantai kilang. Memerlukan sambungan kuasa industri tiga fasa 380V; masukkan kepala penggetar ke dalam konkrit. 3.0kW adalah kuasa tinggi; 380V adalah voltan industri yang tidak tersedia di rumah.",
+    specs: {
+      Power: "3.0kW",
+      Voltage: "380V",
+      Phase: "3-Phase",
+      PlugType: "Round Pin",
+    },
     price: "380.00",
     stock: 50,
     images: ["https://productstupian.zhenda.store/uploads/EM/3.png"],
@@ -693,10 +710,14 @@ const productSeed = [
     nameZh: "巴索高转速搅拌器R6125C",
     nameZhTw: "巴索高轉速攪拌器R6125C",
     nameMs: "Pengadun Kelajuan Tinggi Basso R6125C 1800W",
-    descEn: "Used for mixing paint, glue, and paste-like chemicals. Insert the mixing head into the bucket, power on and gradually increase speed. 1800W provides strong torque suitable for thick materials.",
-    descZh: "用于搅拌油漆、胶水、膏状化学品；把搅拌头伸进桶里，接通电源，由慢到快调转速；1800W表示力气大，适合稠的物料。",
-    descZhTw: "用於攪拌油漆、膠水、膏狀化學品；把攪拌頭伸進桶裡，接通電源，由慢到快調轉速；1800W表示力氣大，適合稠的物料。",
-    descMs: "Digunakan untuk mengaduk cat, gam, dan bahan kimia berbentuk pes. Masukkan kepala pengadun ke dalam baldi, hidupkan kuasa dan tingkatkan kelajuan secara beransur. 1800W memberikan tork yang kuat sesuai untuk bahan pekat.",
+    descEn:
+      "Used for mixing paint, glue, and paste-like chemicals. Insert the mixing head into the bucket, power on and gradually increase speed. 1800W provides strong torque suitable for thick materials.",
+    descZh:
+      "用于搅拌油漆、胶水、膏状化学品；把搅拌头伸进桶里，接通电源，由慢到快调转速；1800W表示力气大，适合稠的物料。",
+    descZhTw:
+      "用於攪拌油漆、膠水、膏狀化學品；把攪拌頭伸進桶裡，接通電源，由慢到快調轉速；1800W表示力氣大，適合稠的物料。",
+    descMs:
+      "Digunakan untuk mengaduk cat, gam, dan bahan kimia berbentuk pes. Masukkan kepala pengadun ke dalam baldi, hidupkan kuasa dan tingkatkan kelajuan secara beransur. 1800W memberikan tork yang kuat sesuai untuk bahan pekat.",
     specs: { Power: "1800W", Model: "R6125C", Type: "High-Speed Mixer" },
     price: "225.00",
     stock: 80,
@@ -709,10 +730,14 @@ const productSeed = [
     nameZh: "宾马电钻AZ101",
     nameZhTw: "賓馬電鑽AZ101",
     nameMs: "Gerudi Elektrik Binma AZ101 10mm 450W",
-    descEn: "For drilling small holes (up to 10mm) in wood panels, plasterboard, and thin sheet metal, as well as driving screws. Clamp the drill bit or screwdriver bit, aim at the target and press the switch. 450W is sufficient for household use.",
-    descZh: "给木板、石膏板、薄铁皮钻小孔（10mm以内），也能拧螺丝；把钻头或螺丝头夹紧，对准位置按开关即可；450W功率够家用。",
-    descZhTw: "給木板、石膏板、薄鐵皮鑽小孔（10mm以內），也能擰螺絲；把鑽頭或螺絲頭夾緊，對準位置按開關即可；450W功率夠家用。",
-    descMs: "Untuk menggerudi lubang kecil (sehingga 10mm) pada papan kayu, papan plaster, dan kepingan logam nipis, serta mengikat skru. Ketatkan mata gerudi atau mata pemutar skru, arahkan ke sasaran dan tekan suis. 450W mencukupi untuk kegunaan rumah.",
+    descEn:
+      "For drilling small holes (up to 10mm) in wood panels, plasterboard, and thin sheet metal, as well as driving screws. Clamp the drill bit or screwdriver bit, aim at the target and press the switch. 450W is sufficient for household use.",
+    descZh:
+      "给木板、石膏板、薄铁皮钻小孔（10mm以内），也能拧螺丝；把钻头或螺丝头夹紧，对准位置按开关即可；450W功率够家用。",
+    descZhTw:
+      "給木板、石膏板、薄鐵皮鑽小孔（10mm以內），也能擰螺絲；把鑽頭或螺絲頭夾緊，對準位置按開關即可；450W功率夠家用。",
+    descMs:
+      "Untuk menggerudi lubang kecil (sehingga 10mm) pada papan kayu, papan plaster, dan kepingan logam nipis, serta mengikat skru. Ketatkan mata gerudi atau mata pemutar skru, arahkan ke sasaran dan tekan suis. 450W mencukupi untuk kegunaan rumah.",
     specs: { ChuckSize: "10mm", Power: "450W", Model: "AZ101" },
     price: "175.00",
     stock: 150,
@@ -725,11 +750,20 @@ const productSeed = [
     nameZh: "宾马型材切割机J35501",
     nameZhTw: "賓馬型材切割機J35501",
     nameMs: "Mesin Pemotong Profil Binma J35501 355mm 3100W",
-    descEn: "For cutting aluminium alloy window frames, iron pipes, angle steel, and other metal profiles. Secure the material, lower the blade head to cut. 355mm is the blade size; 3100W provides ample power.",
-    descZh: "用来切割铝合金门窗框、铁管、角钢等金属型材；把材料放好，压下带锯片的机头切割；355mm是锯片大小，3100W力气很足。",
-    descZhTw: "用來切割鋁合金門窗框、鐵管、角鋼等金屬型材；把材料放好，壓下帶鋸片的機頭切割；355mm是鋸片大小，3100W力氣很足。",
-    descMs: "Untuk memotong bingkai tingkap aloi aluminium, paip besi, keluli sudut, dan profil logam lain. Selaraskan bahan, turunkan kepala bilah untuk memotong. 355mm adalah saiz bilah; 3100W memberikan kuasa yang mencukupi.",
-    specs: { BladeSize: "355mm", Power: "3100W", Model: "J35501", Type: "Profile Cutting Machine" },
+    descEn:
+      "For cutting aluminium alloy window frames, iron pipes, angle steel, and other metal profiles. Secure the material, lower the blade head to cut. 355mm is the blade size; 3100W provides ample power.",
+    descZh:
+      "用来切割铝合金门窗框、铁管、角钢等金属型材；把材料放好，压下带锯片的机头切割；355mm是锯片大小，3100W力气很足。",
+    descZhTw:
+      "用來切割鋁合金門窗框、鐵管、角鋼等金屬型材；把材料放好，壓下帶鋸片的機頭切割；355mm是鋸片大小，3100W力氣很足。",
+    descMs:
+      "Untuk memotong bingkai tingkap aloi aluminium, paip besi, keluli sudut, dan profil logam lain. Selaraskan bahan, turunkan kepala bilah untuk memotong. 355mm adalah saiz bilah; 3100W memberikan kuasa yang mencukupi.",
+    specs: {
+      BladeSize: "355mm",
+      Power: "3100W",
+      Model: "J35501",
+      Type: "Profile Cutting Machine",
+    },
     price: "680.00",
     stock: 40,
     images: ["https://productstupian.zhenda.store/uploads/EM/6.png"],
@@ -741,10 +775,14 @@ const productSeed = [
     nameZh: "先川电钻XC-C6166X",
     nameZhTw: "先川電鑽XC-C6166X",
     nameMs: "Gerudi Elektrik Xianchuan XC-C6166X",
-    descEn: "Standard corded hand drill for driving screws and drilling small holes; suitable for assembling furniture or simple repairs. Easy to use: clamp the drill bit or driver bit, aim at the hole position and press the switch.",
-    descZh: "普通手电钻，拧螺丝、钻小孔都行，适合组装家具或简单维修；使用简单，夹紧钻头或批头，对准孔位按开关。",
-    descZhTw: "普通手電鑽，擰螺絲、鑽小孔都行，適合組裝家具或簡單維修；使用簡單，夾緊鑽頭或批頭，對準孔位按開關。",
-    descMs: "Gerudi tangan berkabel standard untuk mengikat skru dan menggerudi lubang kecil; sesuai untuk memasang perabot atau pembaikan mudah. Mudah digunakan: ketatkan mata gerudi atau mata pemacu, arahkan ke kedudukan lubang dan tekan suis.",
+    descEn:
+      "Standard corded hand drill for driving screws and drilling small holes; suitable for assembling furniture or simple repairs. Easy to use: clamp the drill bit or driver bit, aim at the hole position and press the switch.",
+    descZh:
+      "普通手电钻，拧螺丝、钻小孔都行，适合组装家具或简单维修；使用简单，夹紧钻头或批头，对准孔位按开关。",
+    descZhTw:
+      "普通手電鑽，擰螺絲、鑽小孔都行，適合組裝家具或簡單維修；使用簡單，夾緊鑽頭或批頭，對準孔位按開關。",
+    descMs:
+      "Gerudi tangan berkabel standard untuk mengikat skru dan menggerudi lubang kecil; sesuai untuk memasang perabot atau pembaikan mudah. Mudah digunakan: ketatkan mata gerudi atau mata pemacu, arahkan ke kedudukan lubang dan tekan suis.",
     specs: { Model: "XC-C6166X", Type: "Electric Drill" },
     price: "160.00",
     stock: 150,
@@ -757,11 +795,20 @@ const productSeed = [
     nameZh: "福瑞特铜头热熔胶枪120W",
     nameZhTw: "福瑞特銅頭熱熔膠槍120W",
     nameMs: "Pistol Gam Lebur Panas Muncung Tembaga Fureite 120W 11mm",
-    descEn: "For bonding crafts, cardboard boxes, and small components. Preheat for 3–5 minutes after plugging in, insert the glue stick from the rear, and pull the trigger to dispense glue. 120W heating power; 11mm glue stick diameter.",
-    descZh: "用来粘手工、纸盒、小零件；插电预热3-5分钟，把胶棒从后面塞进去，扣扳机出胶；120W是加热功率，胶棒直径11mm。",
-    descZhTw: "用來粘手工、紙盒、小零件；插電預熱3-5分鐘，把膠棒從後面塞進去，扣扳機出膠；120W是加熱功率，膠棒直徑11mm。",
-    descMs: "Untuk melekat kraftangan, kotak kadbod, dan komponen kecil. Panaskan selama 3–5 minit selepas disambungkan, masukkan kayu gam dari belakang, dan tarik picu untuk mengeluarkan gam. Kuasa pemanasan 120W; diameter kayu gam 11mm.",
-    specs: { Power: "120W", GlueStickDiameter: "11mm", NozzleMaterial: "Copper", Type: "Hot Melt Glue Gun" },
+    descEn:
+      "For bonding crafts, cardboard boxes, and small components. Preheat for 3–5 minutes after plugging in, insert the glue stick from the rear, and pull the trigger to dispense glue. 120W heating power; 11mm glue stick diameter.",
+    descZh:
+      "用来粘手工、纸盒、小零件；插电预热3-5分钟，把胶棒从后面塞进去，扣扳机出胶；120W是加热功率，胶棒直径11mm。",
+    descZhTw:
+      "用來粘手工、紙盒、小零件；插電預熱3-5分鐘，把膠棒從後面塞進去，扣扳機出膠；120W是加熱功率，膠棒直徑11mm。",
+    descMs:
+      "Untuk melekat kraftangan, kotak kadbod, dan komponen kecil. Panaskan selama 3–5 minit selepas disambungkan, masukkan kayu gam dari belakang, dan tarik picu untuk mengeluarkan gam. Kuasa pemanasan 120W; diameter kayu gam 11mm.",
+    specs: {
+      Power: "120W",
+      GlueStickDiameter: "11mm",
+      NozzleMaterial: "Copper",
+      Type: "Hot Melt Glue Gun",
+    },
     price: "28.00",
     stock: 200,
     images: ["https://productstupian.zhenda.store/uploads/EM/8.png"],
@@ -773,11 +820,20 @@ const productSeed = [
     nameZh: "宾马石材切割机AQ11002",
     nameZhTw: "賓馬石材切割機AQ11002",
     nameMs: "Mesin Pemotong Batu Binma AQ11002 110mm 1350W",
-    descEn: "Specifically for cutting ceramic tiles and marble; can bevel tile edges at 45°. Mount the cutting disc, push slowly along the marked line. 1350W provides strong power; 110mm is the blade size.",
-    descZh: "专门切瓷砖、大理石，能把瓷砖边切出45°斜角；装好切割片，沿着画好的线慢慢推切；1350W力气大，110mm是切割片尺寸。",
-    descZhTw: "專門切瓷磚、大理石，能把瓷磚邊切出45°斜角；裝好切割片，沿著畫好的線慢慢推切；1350W力氣大，110mm是切割片尺寸。",
-    descMs: "Khusus untuk memotong jubin seramik dan marmar; boleh memotong tepi jubin pada sudut 45°. Pasang cakera pemotong, tolak perlahan mengikut garisan yang ditandakan. 1350W memberikan kuasa kuat; 110mm adalah saiz bilah.",
-    specs: { BladeSize: "110mm", Power: "1350W", Model: "AQ11002", Type: "Stone Cutting Machine" },
+    descEn:
+      "Specifically for cutting ceramic tiles and marble; can bevel tile edges at 45°. Mount the cutting disc, push slowly along the marked line. 1350W provides strong power; 110mm is the blade size.",
+    descZh:
+      "专门切瓷砖、大理石，能把瓷砖边切出45°斜角；装好切割片，沿着画好的线慢慢推切；1350W力气大，110mm是切割片尺寸。",
+    descZhTw:
+      "專門切瓷磚、大理石，能把瓷磚邊切出45°斜角；裝好切割片，沿著畫好的線慢慢推切；1350W力氣大，110mm是切割片尺寸。",
+    descMs:
+      "Khusus untuk memotong jubin seramik dan marmar; boleh memotong tepi jubin pada sudut 45°. Pasang cakera pemotong, tolak perlahan mengikut garisan yang ditandakan. 1350W memberikan kuasa kuat; 110mm adalah saiz bilah.",
+    specs: {
+      BladeSize: "110mm",
+      Power: "1350W",
+      Model: "AQ11002",
+      Type: "Stone Cutting Machine",
+    },
     price: "230.00",
     stock: 60,
     images: ["https://productstupian.zhenda.store/uploads/EM/9.png"],
@@ -789,10 +845,14 @@ const productSeed = [
     nameZh: "柯莱亚电动角钢冲孔机KLY-20",
     nameZhTw: "柯萊亞電動角鋼衝孔機KLY-20",
     nameMs: "Mesin Tebuk Keluli Sudut Elektrik Koleya KLY-20",
-    descEn: "Punches round holes directly in sheet metal, angle steel, and cable trays without drilling. Install the upper and lower dies, place the sheet metal in the middle, and press the handle to punch.",
-    descZh: "在铁皮、角钢、桥架上直接冲圆孔，不用钻孔；先把上下模具装好，把铁皮放中间，压动手柄就能冲孔。",
-    descZhTw: "在鐵皮、角鋼、橋架上直接衝圓孔，不用鑽孔；先把上下模具裝好，把鐵皮放中間，壓動手柄就能衝孔。",
-    descMs: "Menebuk lubang bulat terus pada kepingan logam, keluli sudut, dan dulang kabel tanpa menggerudi. Pasang acuan atas dan bawah, letakkan kepingan logam di tengah, dan tekan pemegang untuk menebuk.",
+    descEn:
+      "Punches round holes directly in sheet metal, angle steel, and cable trays without drilling. Install the upper and lower dies, place the sheet metal in the middle, and press the handle to punch.",
+    descZh:
+      "在铁皮、角钢、桥架上直接冲圆孔，不用钻孔；先把上下模具装好，把铁皮放中间，压动手柄就能冲孔。",
+    descZhTw:
+      "在鐵皮、角鋼、橋架上直接衝圓孔，不用鑽孔；先把上下模具裝好，把鐵皮放中間，壓動手柄就能衝孔。",
+    descMs:
+      "Menebuk lubang bulat terus pada kepingan logam, keluli sudut, dan dulang kabel tanpa menggerudi. Pasang acuan atas dan bawah, letakkan kepingan logam di tengah, dan tekan pemegang untuk menebuk.",
     specs: { Model: "KLY-20", Type: "Electric Angle Steel Punch" },
     price: "680.00",
     stock: 30,
@@ -805,11 +865,20 @@ const productSeed = [
     nameZh: "宾马电镐G3901",
     nameZhTw: "賓馬電鎬G3901",
     nameMs: "Tukul Pembongkaran Elektrik Binma G3901 17HEX 1500W",
-    descEn: "For demolishing walls, chipping old floor tiles, and breaking concrete. Attach a flat chisel or pointed chisel, plug in, hold firmly with both hands and press against the surface to break. 1500W delivers strong impact force.",
-    descZh: "用来拆墙、铲地面旧瓷砖、凿掉混凝土；换上扁铲或尖凿，插电后双手握紧，对准要破碎的地方用力顶；1500W冲击力强。",
-    descZhTw: "用來拆牆、鏟地面舊瓷磚、鑿掉混凝土；換上扁鏟或尖鑿，插電後雙手握緊，對準要破碎的地方用力頂；1500W衝擊力強。",
-    descMs: "Untuk merobohkan dinding, menanggalkan jubin lantai lama, dan memecahkan konkrit. Pasang pahat rata atau pahat runcing, sambungkan bekalan elektrik, pegang kukuh dengan kedua tangan dan tekan ke permukaan untuk memecah. 1500W menghasilkan daya hentaman yang kuat.",
-    specs: { ChiselFit: "17mm HEX", Power: "1500W", Model: "G3901", Type: "Electric Demolition Hammer" },
+    descEn:
+      "For demolishing walls, chipping old floor tiles, and breaking concrete. Attach a flat chisel or pointed chisel, plug in, hold firmly with both hands and press against the surface to break. 1500W delivers strong impact force.",
+    descZh:
+      "用来拆墙、铲地面旧瓷砖、凿掉混凝土；换上扁铲或尖凿，插电后双手握紧，对准要破碎的地方用力顶；1500W冲击力强。",
+    descZhTw:
+      "用來拆牆、鏟地面舊瓷磚、鑿掉混凝土；換上扁鏟或尖鑿，插電後雙手握緊，對準要破碎的地方用力頂；1500W衝擊力強。",
+    descMs:
+      "Untuk merobohkan dinding, menanggalkan jubin lantai lama, dan memecahkan konkrit. Pasang pahat rata atau pahat runcing, sambungkan bekalan elektrik, pegang kukuh dengan kedua tangan dan tekan ke permukaan untuk memecah. 1500W menghasilkan daya hentaman yang kuat.",
+    specs: {
+      ChiselFit: "17mm HEX",
+      Power: "1500W",
+      Model: "G3901",
+      Type: "Electric Demolition Hammer",
+    },
     price: "520.00",
     stock: 50,
     images: ["https://productstupian.zhenda.store/uploads/EM/11.png"],
@@ -821,10 +890,14 @@ const productSeed = [
     nameZh: "劳得电镐150",
     nameZhTw: "勞得電鎬150",
     nameMs: "Tukul Pembongkaran Elektrik Laode 150 2000W",
-    descEn: "Heavy-duty demolition tool for breaking road surfaces, frozen ground, and large concrete blocks. Operation is the same as a standard demolition hammer but with greater power. 2000W — more powerful than smaller models.",
-    descZh: "更大型的破拆工具，用于路面、冻土、大块混凝土破碎；方法同电镐，力气更大；2000W功率，比上面那款更猛。",
-    descZhTw: "更大型的破拆工具，用於路面、凍土、大塊混凝土破碎；方法同電鎬，力氣更大；2000W功率，比上面那款更猛。",
-    descMs: "Alat pembongkaran berat untuk memecah permukaan jalan, tanah beku, dan blok konkrit besar. Operasi sama seperti tukul pembongkaran biasa tetapi dengan kuasa yang lebih besar. 2000W — lebih berkuasa daripada model yang lebih kecil.",
+    descEn:
+      "Heavy-duty demolition tool for breaking road surfaces, frozen ground, and large concrete blocks. Operation is the same as a standard demolition hammer but with greater power. 2000W — more powerful than smaller models.",
+    descZh:
+      "更大型的破拆工具，用于路面、冻土、大块混凝土破碎；方法同电镐，力气更大；2000W功率，比上面那款更猛。",
+    descZhTw:
+      "更大型的破拆工具，用於路面、凍土、大塊混凝土破碎；方法同電鎬，力氣更大；2000W功率，比上面那款更猛。",
+    descMs:
+      "Alat pembongkaran berat untuk memecah permukaan jalan, tanah beku, dan blok konkrit besar. Operasi sama seperti tukul pembongkaran biasa tetapi dengan kuasa yang lebih besar. 2000W — lebih berkuasa daripada model yang lebih kecil.",
     specs: { Power: "2000W", Model: "150", Type: "Electric Demolition Hammer" },
     price: "1040.00",
     stock: 30,
@@ -837,11 +910,19 @@ const productSeed = [
     nameZh: "恒杰气动角磨机JMJ100",
     nameZhTw: "恒杰氣動角磨機JMJ100",
     nameMs: "Pengisar Sudut Pneumatik Hengjie JMJ100",
-    descEn: "For grinding welds, cutting thin sheet metal, and polishing metal surfaces. Requires an air compressor; connect compressed air, grip the body, and apply the grinding wheel to the workpiece.",
-    descZh: "用来打磨焊点、切割薄铁皮、抛光金属表面；需要接空压机（气泵），通压缩空气后握住机身，用砂轮片打磨。",
-    descZhTw: "用來打磨焊點、切割薄鐵皮、拋光金屬表面；需要接空壓機（氣泵），通壓縮空氣後握住機身，用砂輪片打磨。",
-    descMs: "Untuk menggilap kimpalan, memotong kepingan logam nipis, dan memoles permukaan logam. Memerlukan pemampat udara; sambungkan udara termampat, pegang badan mesin, dan sapukan roda penggilas ke benda kerja.",
-    specs: { Model: "JMJ100", Type: "Pneumatic Angle Grinder", PowerSource: "Compressed Air" },
+    descEn:
+      "For grinding welds, cutting thin sheet metal, and polishing metal surfaces. Requires an air compressor; connect compressed air, grip the body, and apply the grinding wheel to the workpiece.",
+    descZh:
+      "用来打磨焊点、切割薄铁皮、抛光金属表面；需要接空压机（气泵），通压缩空气后握住机身，用砂轮片打磨。",
+    descZhTw:
+      "用來打磨焊點、切割薄鐵皮、拋光金屬表面；需要接空壓機（氣泵），通壓縮空氣後握住機身，用砂輪片打磨。",
+    descMs:
+      "Untuk menggilap kimpalan, memotong kepingan logam nipis, dan memoles permukaan logam. Memerlukan pemampat udara; sambungkan udara termampat, pegang badan mesin, dan sapukan roda penggilas ke benda kerja.",
+    specs: {
+      Model: "JMJ100",
+      Type: "Pneumatic Angle Grinder",
+      PowerSource: "Compressed Air",
+    },
     price: "165.00",
     stock: 80,
     images: ["https://productstupian.zhenda.store/uploads/EM/13.png"],
@@ -853,11 +934,19 @@ const productSeed = [
     nameZh: "蓉创一体式无气自保焊机MIG-270K",
     nameZhTw: "蓉創一體式無氣自保焊機MIG-270K",
     nameMs: "Mesin Kimpalan MIG Tanpa Gas Rongchuang MIG-270K",
-    descEn: "For welding iron and stainless steel sheets without an external gas cylinder; the flux-cored wire provides its own shielding. Connect the power and ground clamp, adjust the current, and pull the welding gun trigger to weld.",
-    descZh: "焊接铁板、不锈钢板，不用外接气瓶，焊丝自带保护；接好电源和地线，调节电流，扣动焊枪开关进行焊接。",
-    descZhTw: "焊接鐵板、不鏽鋼板，不用外接氣瓶，焊絲自帶保護；接好電源和地線，調節電流，扣動焊槍開關進行焊接。",
-    descMs: "Untuk mengimpal kepingan besi dan keluli tahan karat tanpa silinder gas luaran; wayar teras fluks menyediakan pelindungnya sendiri. Sambungkan bekalan kuasa dan pengapit bumi, laraskan arus, dan tarik picu pistol kimpalan untuk mengimpal.",
-    specs: { Model: "MIG-270K", Type: "Gasless MIG Welder", WireType: "Flux-Cored" },
+    descEn:
+      "For welding iron and stainless steel sheets without an external gas cylinder; the flux-cored wire provides its own shielding. Connect the power and ground clamp, adjust the current, and pull the welding gun trigger to weld.",
+    descZh:
+      "焊接铁板、不锈钢板，不用外接气瓶，焊丝自带保护；接好电源和地线，调节电流，扣动焊枪开关进行焊接。",
+    descZhTw:
+      "焊接鐵板、不鏽鋼板，不用外接氣瓶，焊絲自帶保護；接好電源和地線，調節電流，扣動焊槍開關進行焊接。",
+    descMs:
+      "Untuk mengimpal kepingan besi dan keluli tahan karat tanpa silinder gas luaran; wayar teras fluks menyediakan pelindungnya sendiri. Sambungkan bekalan kuasa dan pengapit bumi, laraskan arus, dan tarik picu pistol kimpalan untuk mengimpal.",
+    specs: {
+      Model: "MIG-270K",
+      Type: "Gasless MIG Welder",
+      WireType: "Flux-Cored",
+    },
     price: "1270.00",
     stock: 25,
     images: ["https://productstupian.zhenda.store/uploads/EM/14.png"],
@@ -869,11 +958,19 @@ const productSeed = [
     nameZh: "蓉创内置气泵等离子切割机LGK-60S",
     nameZhTw: "蓉創內置氣泵等離子切割機LGK-60S",
     nameMs: "Mesin Pemotong Plasma Pam Terbina Dalam Rongchuang LGK-60S",
-    descEn: "For fast cutting of various thin metal sheets (iron, stainless steel, aluminium). The built-in air pump requires no external air supply; press the cutting torch switch to generate a high-temperature plasma arc that cuts through metal.",
-    descZh: "用来快速切割各种金属薄板（铁、不锈钢、铝）；机器自带气泵，不用外接气源，按下割枪开关就能产生高温等离子弧切开金属。",
-    descZhTw: "用來快速切割各種金屬薄板（鐵、不鏽鋼、鋁）；機器自帶氣泵，不用外接氣源，按下割槍開關就能產生高溫等離子弧切開金屬。",
-    descMs: "Untuk memotong pelbagai kepingan logam nipis (besi, keluli tahan karat, aluminium) dengan cepat. Pam udara terbina dalam tidak memerlukan bekalan udara luaran; tekan suis obor pemotong untuk menjana arka plasma bersuhu tinggi yang memotong logam.",
-    specs: { Model: "LGK-60S", Type: "Plasma Cutter", AirSupply: "Built-in Pump" },
+    descEn:
+      "For fast cutting of various thin metal sheets (iron, stainless steel, aluminium). The built-in air pump requires no external air supply; press the cutting torch switch to generate a high-temperature plasma arc that cuts through metal.",
+    descZh:
+      "用来快速切割各种金属薄板（铁、不锈钢、铝）；机器自带气泵，不用外接气源，按下割枪开关就能产生高温等离子弧切开金属。",
+    descZhTw:
+      "用來快速切割各種金屬薄板（鐵、不鏽鋼、鋁）；機器自帶氣泵，不用外接氣源，按下割槍開關就能產生高溫等離子弧切開金屬。",
+    descMs:
+      "Untuk memotong pelbagai kepingan logam nipis (besi, keluli tahan karat, aluminium) dengan cepat. Pam udara terbina dalam tidak memerlukan bekalan udara luaran; tekan suis obor pemotong untuk menjana arka plasma bersuhu tinggi yang memotong logam.",
+    specs: {
+      Model: "LGK-60S",
+      Type: "Plasma Cutter",
+      AirSupply: "Built-in Pump",
+    },
     price: "1820.00",
     stock: 20,
     images: ["https://productstupian.zhenda.store/uploads/EM/15.png"],
@@ -885,11 +982,20 @@ const productSeed = [
     nameZh: "锦石打孔机114型/220V",
     nameZhTw: "錦石打孔機114型/220V",
     nameMs: "Mesin Tebuk Paip Jinshi Jenis 114 220V",
-    descEn: "For pressure tapping on water supply pipes (iron or galvanized) to add branch connections while the pipe remains under pressure. Secure the machine to the pipe with a chain and slowly drill through. Maximum hole diameter 114mm.",
-    descZh: "用在自来水管道上（铁管、镀锌管）带压开孔，以便接分支水管；用链条把机器固定在管子上，慢慢钻头钻进去；最大可打直径114毫米的孔。",
-    descZhTw: "用在自來水管道上（鐵管、鍍鋅管）帶壓開孔，以便接分支水管；用鏈條把機器固定在管子上，慢慢鑽頭鑽進去；最大可打直徑114毫米的孔。",
-    descMs: "Untuk membuat lubang bertekanan pada paip bekalan air (paip besi atau galvanis) bagi menambah sambungan cawangan semasa paip masih bertekanan. Selaraskan mesin ke paip dengan rantai dan gerudi perlahan-lahan. Diameter lubang maksimum 114mm.",
-    specs: { Model: "114 Type", Voltage: "220V", MaxDiameter: "114mm", Type: "Pipe Tapping Machine" },
+    descEn:
+      "For pressure tapping on water supply pipes (iron or galvanized) to add branch connections while the pipe remains under pressure. Secure the machine to the pipe with a chain and slowly drill through. Maximum hole diameter 114mm.",
+    descZh:
+      "用在自来水管道上（铁管、镀锌管）带压开孔，以便接分支水管；用链条把机器固定在管子上，慢慢钻头钻进去；最大可打直径114毫米的孔。",
+    descZhTw:
+      "用在自來水管道上（鐵管、鍍鋅管）帶壓開孔，以便接分支水管；用鏈條把機器固定在管子上，慢慢鑽頭鑽進去；最大可打直徑114毫米的孔。",
+    descMs:
+      "Untuk membuat lubang bertekanan pada paip bekalan air (paip besi atau galvanis) bagi menambah sambungan cawangan semasa paip masih bertekanan. Selaraskan mesin ke paip dengan rantai dan gerudi perlahan-lahan. Diameter lubang maksimum 114mm.",
+    specs: {
+      Model: "114 Type",
+      Voltage: "220V",
+      MaxDiameter: "114mm",
+      Type: "Pipe Tapping Machine",
+    },
     price: "0.00",
     stock: 20,
     images: ["https://productstupian.zhenda.store/uploads/EM/16.png"],
@@ -901,11 +1007,20 @@ const productSeed = [
     nameZh: "海途金龙汽油马路切割机500SC-190（手启动）",
     nameZhTw: "海途金龍汽油馬路切割機500SC-190（手啟動）",
     nameMs: "Mesin Pemotong Jalan Petrol Haitu Jinlong 500SC-190 (Tarik Mula)",
-    descEn: "For cutting concrete and asphalt road surfaces, e.g. for road joint cutting during repairs. Fill with petrol, pull-start the engine, push forward and cut slowly along the marked line.",
-    descZh: "切割水泥路面、沥青路面，比如修路切缝；加汽油，拉动手拉盘启动，推着走，沿着标线慢慢切。",
-    descZhTw: "切割水泥路面、瀝青路面，比如修路切縫；加汽油，拉動手拉盤啟動，推著走，沿著標線慢慢切。",
-    descMs: "Untuk memotong permukaan jalan konkrit dan asfalt, contohnya pemotongan sendi jalan semasa pembaikan. Isi minyak petrol, tarik pemacu untuk menghidupkan enjin, tolak ke hadapan dan potong perlahan mengikut garisan yang ditandakan.",
-    specs: { Model: "500SC-190", StartType: "Pull Start", FuelType: "Petrol", Type: "Road Cutter" },
+    descEn:
+      "For cutting concrete and asphalt road surfaces, e.g. for road joint cutting during repairs. Fill with petrol, pull-start the engine, push forward and cut slowly along the marked line.",
+    descZh:
+      "切割水泥路面、沥青路面，比如修路切缝；加汽油，拉动手拉盘启动，推着走，沿着标线慢慢切。",
+    descZhTw:
+      "切割水泥路面、瀝青路面，比如修路切縫；加汽油，拉動手拉盤啟動，推著走，沿著標線慢慢切。",
+    descMs:
+      "Untuk memotong permukaan jalan konkrit dan asfalt, contohnya pemotongan sendi jalan semasa pembaikan. Isi minyak petrol, tarik pemacu untuk menghidupkan enjin, tolak ke hadapan dan potong perlahan mengikut garisan yang ditandakan.",
+    specs: {
+      Model: "500SC-190",
+      StartType: "Pull Start",
+      FuelType: "Petrol",
+      Type: "Road Cutter",
+    },
     price: "2620.00",
     stock: 10,
     images: ["https://productstupian.zhenda.store/uploads/EM/17.png"],
@@ -917,11 +1032,19 @@ const productSeed = [
     nameZh: "先川双用电锤XC-C1029B",
     nameZhTw: "先川雙用電錘XC-C1029B",
     nameMs: "Tukul Putar Dwi-Mod Xianchuan XC-C1029B",
-    descEn: "Can drill holes in concrete walls (for expansion bolts) and also function as a regular electric drill. Mode selector switch: hammer drill mode for walls; drill mode for wood and metal.",
-    descZh: "可在混凝土墙上打孔（装膨胀螺栓），也能当普通电钻用；有模式切换旋钮：锤钻模式打墙，电钻模式钻木头/铁。",
-    descZhTw: "可在混凝土牆上打孔（裝膨脹螺栓），也能當普通電鑽用；有模式切換旋鈕：錘鑽模式打牆，電鑽模式鑽木頭/鐵。",
-    descMs: "Boleh menggerudi lubang pada dinding konkrit (untuk bolt pengembang) dan juga berfungsi sebagai gerudi elektrik biasa. Suis pemilih mod: mod tukul gerudi untuk dinding; mod gerudi untuk kayu dan logam.",
-    specs: { Model: "XC-C1029B", Type: "Dual-Mode Rotary Hammer", Modes: "Hammer Drill / Drill" },
+    descEn:
+      "Can drill holes in concrete walls (for expansion bolts) and also function as a regular electric drill. Mode selector switch: hammer drill mode for walls; drill mode for wood and metal.",
+    descZh:
+      "可在混凝土墙上打孔（装膨胀螺栓），也能当普通电钻用；有模式切换旋钮：锤钻模式打墙，电钻模式钻木头/铁。",
+    descZhTw:
+      "可在混凝土牆上打孔（裝膨脹螺栓），也能當普通電鑽用；有模式切換旋鈕：錘鑽模式打牆，電鑽模式鑽木頭/鐵。",
+    descMs:
+      "Boleh menggerudi lubang pada dinding konkrit (untuk bolt pengembang) dan juga berfungsi sebagai gerudi elektrik biasa. Suis pemilih mod: mod tukul gerudi untuk dinding; mod gerudi untuk kayu dan logam.",
+    specs: {
+      Model: "XC-C1029B",
+      Type: "Dual-Mode Rotary Hammer",
+      Modes: "Hammer Drill / Drill",
+    },
     price: "245.00",
     stock: 100,
     images: ["https://productstupian.zhenda.store/uploads/EM/18.png"],
@@ -932,12 +1055,24 @@ const productSeed = [
     nameEn: "Beiqi Mobile Screw Compressor YDPM4.5-8/220V (No Cover) 4.5kW",
     nameZh: "北气移动式螺杆机YDPM4.5-8/220V不带罩",
     nameZhTw: "北氣移動式螺桿機YDPM4.5-8/220V不帶罩",
-    nameMs: "Pemampat Skru Mudah Alih Beiqi YDPM4.5-8/220V (Tanpa Penutup) 4.5kW",
-    descEn: "Supplies compressed air to pneumatic tools such as air wrenches and spray guns. Connect to 220V, power on for automatic compression; can be wheeled around. Pressure 8 bar, airflow 0.6 m³/min.",
-    descZh: "给气动工具（如气动扳手、喷漆枪）提供压缩空气；接220V电，开机后自动打气，可推着移动；压力8公斤，出气量0.6立方米每分钟。",
-    descZhTw: "給氣動工具（如氣動扳手、噴漆槍）提供壓縮空氣；接220V電，開機後自動打氣，可推著移動；壓力8公斤，出氣量0.6立方米每分鐘。",
-    descMs: "Membekalkan udara termampat kepada alat pneumatik seperti kunci pneumatik dan pistol semburan. Sambungkan ke 220V, hidupkan untuk pemampatan automatik; boleh ditolak bergerak. Tekanan 8 bar, aliran udara 0.6 m³/min.",
-    specs: { Power: "4.5kW", Voltage: "220V", Pressure: "8 bar", Airflow: "0.6 m³/min", Model: "YDPM4.5-8/220V", Type: "Mobile Screw Compressor" },
+    nameMs:
+      "Pemampat Skru Mudah Alih Beiqi YDPM4.5-8/220V (Tanpa Penutup) 4.5kW",
+    descEn:
+      "Supplies compressed air to pneumatic tools such as air wrenches and spray guns. Connect to 220V, power on for automatic compression; can be wheeled around. Pressure 8 bar, airflow 0.6 m³/min.",
+    descZh:
+      "给气动工具（如气动扳手、喷漆枪）提供压缩空气；接220V电，开机后自动打气，可推着移动；压力8公斤，出气量0.6立方米每分钟。",
+    descZhTw:
+      "給氣動工具（如氣動扳手、噴漆槍）提供壓縮空氣；接220V電，開機後自動打氣，可推著移動；壓力8公斤，出氣量0.6立方米每分鐘。",
+    descMs:
+      "Membekalkan udara termampat kepada alat pneumatik seperti kunci pneumatik dan pistol semburan. Sambungkan ke 220V, hidupkan untuk pemampatan automatik; boleh ditolak bergerak. Tekanan 8 bar, aliran udara 0.6 m³/min.",
+    specs: {
+      Power: "4.5kW",
+      Voltage: "220V",
+      Pressure: "8 bar",
+      Airflow: "0.6 m³/min",
+      Model: "YDPM4.5-8/220V",
+      Type: "Mobile Screw Compressor",
+    },
     price: "3920.00",
     stock: 10,
     images: ["https://productstupian.zhenda.store/uploads/EM/19.png"],
@@ -949,11 +1084,19 @@ const productSeed = [
     nameZh: "福瑞特透明管筒装式压胶枪",
     nameZhTw: "福瑞特透明管筒裝式壓膠槍",
     nameMs: "Pistol Gam Tiub Lutsinar Fureite 15 inci",
-    descEn: "For applying silicone sealant, grout, and structural adhesive. Insert the cartridge into the gun body, pull the trigger and the adhesive is squeezed from the nozzle. The transparent tube lets you see how much adhesive remains.",
-    descZh: "用来打玻璃胶、美缝剂、结构胶；把胶筒放进枪身，扣动扳机，胶就从前面挤出来；透明管可以看到剩余多少胶。",
-    descZhTw: "用來打玻璃膠、美縫劑、結構膠；把膠筒放進槍身，扣動扳機，膠就從前面擠出來；透明管可以看到剩餘多少膠。",
-    descMs: "Untuk menggunakan pengedap silikon, graut, dan pelekat struktur. Masukkan kartrij ke dalam badan pistol, tarik picu dan pelekat diperah dari muncung. Tiub lutsinar membolehkan anda melihat baki pelekat yang tinggal.",
-    specs: { Size: "15 inch", TubeType: "Transparent Cartridge", Type: "Caulking Gun" },
+    descEn:
+      "For applying silicone sealant, grout, and structural adhesive. Insert the cartridge into the gun body, pull the trigger and the adhesive is squeezed from the nozzle. The transparent tube lets you see how much adhesive remains.",
+    descZh:
+      "用来打玻璃胶、美缝剂、结构胶；把胶筒放进枪身，扣动扳机，胶就从前面挤出来；透明管可以看到剩余多少胶。",
+    descZhTw:
+      "用來打玻璃膠、美縫劑、結構膠；把膠筒放進槍身，扣動扳機，膠就從前面擠出來；透明管可以看到剩餘多少膠。",
+    descMs:
+      "Untuk menggunakan pengedap silikon, graut, dan pelekat struktur. Masukkan kartrij ke dalam badan pistol, tarik picu dan pelekat diperah dari muncung. Tiub lutsinar membolehkan anda melihat baki pelekat yang tinggal.",
+    specs: {
+      Size: "15 inch",
+      TubeType: "Transparent Cartridge",
+      Type: "Caulking Gun",
+    },
     price: "12.00",
     stock: 300,
     images: ["https://productstupian.zhenda.store/uploads/EM/20.png"],
@@ -965,10 +1108,14 @@ const productSeed = [
     nameZh: "深达威水准仪SW-32A",
     nameZhTw: "深達威水準儀SW-32A",
     nameMs: "Aras Optik Shendawei SW-32A",
-    descEn: "For measuring levels and setting out datum lines on construction sites; checks whether floors or walls are horizontal. Mount on a tripod, level it, then read the levelling staff through the telescope.",
-    descZh: "工地测量水平、抄平放线用，检查地面或墙面是否水平；架在三脚架上，调平后通过望远镜观察水准尺读数。",
-    descZhTw: "工地測量水平、抄平放線用，檢查地面或牆面是否水平；架在三腳架上，調平後通過望遠鏡觀察水準尺讀數。",
-    descMs: "Untuk mengukur aras dan meletakkan garisan datum di tapak pembinaan; memeriksa sama ada lantai atau dinding adalah mendatar. Pasang pada tripod, ratakan, kemudian baca rod penentuan aras melalui teleskop.",
+    descEn:
+      "For measuring levels and setting out datum lines on construction sites; checks whether floors or walls are horizontal. Mount on a tripod, level it, then read the levelling staff through the telescope.",
+    descZh:
+      "工地测量水平、抄平放线用，检查地面或墙面是否水平；架在三脚架上，调平后通过望远镜观察水准尺读数。",
+    descZhTw:
+      "工地測量水平、抄平放線用，檢查地面或牆面是否水平；架在三腳架上，調平後通過望遠鏡觀察水準尺讀數。",
+    descMs:
+      "Untuk mengukur aras dan meletakkan garisan datum di tapak pembinaan; memeriksa sama ada lantai atau dinding adalah mendatar. Pasang pada tripod, ratakan, kemudian baca rod penentuan aras melalui teleskop.",
     specs: { Model: "SW-32A", Type: "Optical Level", Magnification: "32×" },
     price: "420.00",
     stock: 30,
@@ -981,10 +1128,14 @@ const productSeed = [
     nameZh: "先川电圆锯XC-C1255",
     nameZhTw: "先川電圓鋸XC-C1255",
     nameMs: "Gergaji Bulat Xianchuan XC-C1255",
-    descEn: "For cutting wood panels, plywood, skirting boards, and other carpentry materials. Adjust the cutting depth, keep the blade against the guide fence and push the saw forward with both hands.",
-    descZh: "用来切割木板、多层板、踢脚线等木工活；调整好切割深度，锯片靠紧导尺，双手推着锯前进。",
-    descZhTw: "用來切割木板、多層板、踢腳線等木工活；調整好切割深度，鋸片靠緊導尺，雙手推著鋸前進。",
-    descMs: "Untuk memotong papan kayu, kayu lapis, papan skirting, dan bahan pertukangan kayu lain. Laraskan kedalaman pemotongan, tahan bilah rapat pada pagar panduan dan tolak gergaji ke hadapan dengan kedua tangan.",
+    descEn:
+      "For cutting wood panels, plywood, skirting boards, and other carpentry materials. Adjust the cutting depth, keep the blade against the guide fence and push the saw forward with both hands.",
+    descZh:
+      "用来切割木板、多层板、踢脚线等木工活；调整好切割深度，锯片靠紧导尺，双手推着锯前进。",
+    descZhTw:
+      "用來切割木板、多層板、踢腳線等木工活；調整好切割深度，鋸片靠緊導尺，雙手推著鋸前進。",
+    descMs:
+      "Untuk memotong papan kayu, kayu lapis, papan skirting, dan bahan pertukangan kayu lain. Laraskan kedalaman pemotongan, tahan bilah rapat pada pagar panduan dan tolak gergaji ke hadapan dengan kedua tangan.",
     specs: { Model: "XC-C1255", Type: "Circular Saw" },
     price: "380.00",
     stock: 60,
@@ -997,10 +1148,14 @@ const productSeed = [
     nameZh: "先川角向磨光机XC-C71006X",
     nameZhTw: "先川角向磨光機XC-C71006X",
     nameMs: "Pengisar Sudut Xianchuan XC-C71006X",
-    descEn: "For grinding and cutting small metal pieces or cutting PVC pipes. Mount a grinding disc or cutting disc, grip the body, and move the disc edge slowly across the workpiece.",
-    descZh: "可用来打磨、切割小铁件或切PVC管；装上砂轮片或切割片，握住机身，让砂轮边缘接触工件慢慢移动。",
-    descZhTw: "可用來打磨、切割小鐵件或切PVC管；裝上砂輪片或切割片，握住機身，讓砂輪邊緣接觸工件慢慢移動。",
-    descMs: "Untuk menggilap dan memotong bahagian logam kecil atau memotong paip PVC. Pasang cakera penggilas atau cakera pemotong, pegang badan mesin, dan gerakkan tepi cakera perlahan-lahan merentasi benda kerja.",
+    descEn:
+      "For grinding and cutting small metal pieces or cutting PVC pipes. Mount a grinding disc or cutting disc, grip the body, and move the disc edge slowly across the workpiece.",
+    descZh:
+      "可用来打磨、切割小铁件或切PVC管；装上砂轮片或切割片，握住机身，让砂轮边缘接触工件慢慢移动。",
+    descZhTw:
+      "可用來打磨、切割小鐵件或切PVC管；裝上砂輪片或切割片，握住機身，讓砂輪邊緣接觸工件慢慢移動。",
+    descMs:
+      "Untuk menggilap dan memotong bahagian logam kecil atau memotong paip PVC. Pasang cakera penggilas atau cakera pemotong, pegang badan mesin, dan gerakkan tepi cakera perlahan-lahan merentasi benda kerja.",
     specs: { Model: "XC-C71006X", Type: "Angle Grinder" },
     price: "90.00",
     stock: 200,
@@ -1013,10 +1168,14 @@ const productSeed = [
     nameZh: "巴索便携式吸尘器R7701（博来）",
     nameZhTw: "巴索便攜式吸塵器R7701（博來）",
     nameMs: "Pembersih Vakum Mudah Alih Basso R7701 700W",
-    descEn: "For everyday vacuuming of dust, paper scraps, and car interiors. Plug in, attach the suction head, and press the switch. 700W provides moderate suction suitable for small-area cleaning.",
-    descZh: "日常吸尘、吸纸屑、吸车内灰尘；插上电，装上吸头，按开关即可；700W功率，吸力适中，适合小面积清洁。",
-    descZhTw: "日常吸塵、吸紙屑、吸車內灰塵；插上電，裝上吸頭，按開關即可；700W功率，吸力適中，適合小面積清潔。",
-    descMs: "Untuk pembersihan habuk harian, keratan kertas, dan bahagian dalam kereta. Sambungkan bekalan elektrik, pasang kepala sedutan, dan tekan suis. 700W memberikan sedutan sederhana sesuai untuk pembersihan kawasan kecil.",
+    descEn:
+      "For everyday vacuuming of dust, paper scraps, and car interiors. Plug in, attach the suction head, and press the switch. 700W provides moderate suction suitable for small-area cleaning.",
+    descZh:
+      "日常吸尘、吸纸屑、吸车内灰尘；插上电，装上吸头，按开关即可；700W功率，吸力适中，适合小面积清洁。",
+    descZhTw:
+      "日常吸塵、吸紙屑、吸車內灰塵；插上電，裝上吸頭，按開關即可；700W功率，吸力適中，適合小面積清潔。",
+    descMs:
+      "Untuk pembersihan habuk harian, keratan kertas, dan bahagian dalam kereta. Sambungkan bekalan elektrik, pasang kepala sedutan, dan tekan suis. 700W memberikan sedutan sederhana sesuai untuk pembersihan kawasan kecil.",
     specs: { Model: "R7701", Power: "700W", Type: "Portable Vacuum Cleaner" },
     price: "230.00",
     stock: 80,
@@ -1029,11 +1188,22 @@ const productSeed = [
     nameZh: "鱼越潜水泵QDX1.5-16-0.37/220",
     nameZhTw: "魚越潛水泵QDX1.5-16-0.37/220",
     nameMs: "Pam Selam Yuyue QDX1.5-16-0.37/220V",
-    descEn: "For pumping water from flooded basements, fish ponds, or irrigation. Submerge the entire pump in water, connect 220V power and water automatically flows from the outlet. Flow rate 1.5 m³/h; max head 9.2m (approx. 3 storeys).",
-    descZh: "用于抽水，比如地下室积水、鱼塘换水、浇菜地；整个泵放进水里，接220V电，水会自动从出口排出；流量每小时1.5立方米，扬程最高9.2米（大概3层楼高）。",
-    descZhTw: "用於抽水，比如地下室積水、魚塘換水、澆菜地；整個泵放進水裡，接220V電，水會自動從出口排出；流量每小時1.5立方米，揚程最高9.2米（大概3層樓高）。",
-    descMs: "Untuk mengepam air dari ruang bawah tanah yang banjir, kolam ikan, atau pengairan. Rendam keseluruhan pam dalam air, sambungkan bekalan kuasa 220V dan air mengalir keluar secara automatik. Kadar aliran 1.5 m³/j; turus maksimum 9.2m (kira-kira 3 tingkat).",
-    specs: { Model: "QDX1.5-16-0.37", Voltage: "220V", FlowRate: "1.5 m³/h", MaxHead: "9.2m", OutletSize: "1 inch", Type: "Submersible Pump" },
+    descEn:
+      "For pumping water from flooded basements, fish ponds, or irrigation. Submerge the entire pump in water, connect 220V power and water automatically flows from the outlet. Flow rate 1.5 m³/h; max head 9.2m (approx. 3 storeys).",
+    descZh:
+      "用于抽水，比如地下室积水、鱼塘换水、浇菜地；整个泵放进水里，接220V电，水会自动从出口排出；流量每小时1.5立方米，扬程最高9.2米（大概3层楼高）。",
+    descZhTw:
+      "用於抽水，比如地下室積水、魚塘換水、澆菜地；整個泵放進水裡，接220V電，水會自動從出口排出；流量每小時1.5立方米，揚程最高9.2米（大概3層樓高）。",
+    descMs:
+      "Untuk mengepam air dari ruang bawah tanah yang banjir, kolam ikan, atau pengairan. Rendam keseluruhan pam dalam air, sambungkan bekalan kuasa 220V dan air mengalir keluar secara automatik. Kadar aliran 1.5 m³/j; turus maksimum 9.2m (kira-kira 3 tingkat).",
+    specs: {
+      Model: "QDX1.5-16-0.37",
+      Voltage: "220V",
+      FlowRate: "1.5 m³/h",
+      MaxHead: "9.2m",
+      OutletSize: "1 inch",
+      Type: "Submersible Pump",
+    },
     price: "155.00",
     stock: 60,
     images: ["https://productstupian.zhenda.store/uploads/EM/25.png"],
@@ -1045,10 +1215,14 @@ const productSeed = [
     nameZh: "先川手电钻XC-C6105X",
     nameZhTw: "先川手電鑽XC-C6105X",
     nameMs: "Gerudi Elektrik Tangan Xianchuan XC-C6105X",
-    descEn: "Simple corded hand drill for driving screws and drilling thin boards and thin wood. Easy to use: clamp the drill bit and press the switch. A basic entry-level model.",
-    descZh: "简单的插电手钻，拧螺丝、钻薄板、薄木头用；操作简单，夹好钻头，按开关即可；非常基础款。",
-    descZhTw: "簡單的插電手鑽，擰螺絲、鑽薄板、薄木頭用；操作簡單，夾好鑽頭，按開關即可；非常基礎款。",
-    descMs: "Gerudi tangan berkabel mudah untuk mengikat skru dan menggerudi papan nipis dan kayu nipis. Mudah digunakan: ketatkan mata gerudi dan tekan suis. Model asas peringkat permulaan.",
+    descEn:
+      "Simple corded hand drill for driving screws and drilling thin boards and thin wood. Easy to use: clamp the drill bit and press the switch. A basic entry-level model.",
+    descZh:
+      "简单的插电手钻，拧螺丝、钻薄板、薄木头用；操作简单，夹好钻头，按开关即可；非常基础款。",
+    descZhTw:
+      "簡單的插電手鑽，擰螺絲、鑽薄板、薄木頭用；操作簡單，夾好鑽頭，按開關即可；非常基礎款。",
+    descMs:
+      "Gerudi tangan berkabel mudah untuk mengikat skru dan menggerudi papan nipis dan kayu nipis. Mudah digunakan: ketatkan mata gerudi dan tekan suis. Model asas peringkat permulaan.",
     specs: { Model: "XC-C6105X", Type: "Electric Hand Drill" },
     price: "90.00",
     stock: 200,
@@ -1061,11 +1235,20 @@ const productSeed = [
     nameZh: "巴索多功能锯R5102B快装",
     nameZhTw: "巴索多功能鋸R5102B快裝",
     nameMs: "Gergaji Pelbagai Fungsi Basso R5102B Tukar Pantas 400W",
-    descEn: "Can saw wood, thin iron pipes, and plasterboard; blades change quickly. Mount the appropriate blade, power on and cut along the marked line. 400W power; suitable for small workpieces.",
-    descZh: "可锯木头、薄铁管、石膏板，能快速换锯条；装上合适的锯片，通电后沿着画好的线切割；400W功率，适合小件切割。",
-    descZhTw: "可鋸木頭、薄鐵管、石膏板，能快速換鋸條；裝上合適的鋸片，通電後沿著畫好的線切割；400W功率，適合小件切割。",
-    descMs: "Boleh menggergaji kayu, paip besi nipis, dan papan plaster; bilah bertukar dengan cepat. Pasang bilah yang sesuai, hidupkan bekalan kuasa dan potong mengikut garisan yang ditandakan. Kuasa 400W; sesuai untuk benda kerja kecil.",
-    specs: { Model: "R5102B", Power: "400W", Type: "Multi-Function Saw", BladeChange: "Quick-Change" },
+    descEn:
+      "Can saw wood, thin iron pipes, and plasterboard; blades change quickly. Mount the appropriate blade, power on and cut along the marked line. 400W power; suitable for small workpieces.",
+    descZh:
+      "可锯木头、薄铁管、石膏板，能快速换锯条；装上合适的锯片，通电后沿着画好的线切割；400W功率，适合小件切割。",
+    descZhTw:
+      "可鋸木頭、薄鐵管、石膏板，能快速換鋸條；裝上合適的鋸片，通電後沿著畫好的線切割；400W功率，適合小件切割。",
+    descMs:
+      "Boleh menggergaji kayu, paip besi nipis, dan papan plaster; bilah bertukar dengan cepat. Pasang bilah yang sesuai, hidupkan bekalan kuasa dan potong mengikut garisan yang ditandakan. Kuasa 400W; sesuai untuk benda kerja kecil.",
+    specs: {
+      Model: "R5102B",
+      Power: "400W",
+      Type: "Multi-Function Saw",
+      BladeChange: "Quick-Change",
+    },
     price: "185.00",
     stock: 80,
     images: ["https://productstupian.zhenda.store/uploads/EM/27.png"],
@@ -1572,11 +1755,20 @@ const productSeed = [
     nameZh: "得力中孔花型螺丝批T10*100mm DL6210010T",
     nameZhTw: "得力中孔花型螺絲批T10*100mm DL6210010T",
     nameMs: "Pemutar Skru Torx T10 Berlubang Deli 100mm DL6210010T",
-    descEn: "Commonly used for disassembling mobile phones, tablets, game controllers, and some home appliances. Before use, ensure the magnetic tip can hold the screw. Align the T10 star tip with the centre hole of the screw head, press firmly and rotate vertically to complete assembly or disassembly.",
-    descZh: "常用于拆修手机、平板、游戏手柄及部分家电（如小尺寸电器设备），使用前确保批头磁吸能吸住螺丝，将批头对准螺丝头部的星形中孔，顶住后垂直旋转即可完成拆装。",
-    descZhTw: "常用於拆修手機、平板、遊戲手柄及部分家電（如小尺寸電器設備），使用前確保批頭磁吸能吸住螺絲，將批頭對準螺絲頭部的星形中孔，頂住後垂直旋轉即可完成拆裝。",
-    descMs: "Biasa digunakan untuk membuka telefon pintar, tablet, pengawal permainan, dan beberapa peralatan elektrik rumah. Sebelum digunakan, pastikan hujung bermagnet boleh memegang skru. Selaraskan hujung bintang T10 dengan lubang tengah kepala skru, tekan dengan kuat dan putar menegak untuk menyelesaikan pemasangan atau pembongkaran.",
-    specs: { Size: "T10", Length: "100mm", Model: "DL6210010T", Type: "Torx Screwdriver with Centre Hole" },
+    descEn:
+      "Commonly used for disassembling mobile phones, tablets, game controllers, and some home appliances. Before use, ensure the magnetic tip can hold the screw. Align the T10 star tip with the centre hole of the screw head, press firmly and rotate vertically to complete assembly or disassembly.",
+    descZh:
+      "常用于拆修手机、平板、游戏手柄及部分家电（如小尺寸电器设备），使用前确保批头磁吸能吸住螺丝，将批头对准螺丝头部的星形中孔，顶住后垂直旋转即可完成拆装。",
+    descZhTw:
+      "常用於拆修手機、平板、遊戲手柄及部分家電（如小尺寸電器設備），使用前確保批頭磁吸能吸住螺絲，將批頭對準螺絲頭部的星形中孔，頂住後垂直旋轉即可完成拆裝。",
+    descMs:
+      "Biasa digunakan untuk membuka telefon pintar, tablet, pengawal permainan, dan beberapa peralatan elektrik rumah. Sebelum digunakan, pastikan hujung bermagnet boleh memegang skru. Selaraskan hujung bintang T10 dengan lubang tengah kepala skru, tekan dengan kuat dan putar menegak untuk menyelesaikan pemasangan atau pembongkaran.",
+    specs: {
+      Size: "T10",
+      Length: "100mm",
+      Model: "DL6210010T",
+      Type: "Torx Screwdriver with Centre Hole",
+    },
     price: "3.50",
     stock: 500,
     images: ["https://productstupian.zhenda.store/uploads/SC/21.png"],
@@ -1588,10 +1780,14 @@ const productSeed = [
     nameZh: "得力水口钳5寸 DL2715",
     nameZhTw: "得力水口鉗5寸 DL2715",
     nameMs: "Playar Pemotong Rata Deli 5 inci DL2715",
-    descEn: "Widely used for trimming injection-moulded part gates and burrs, cutting model runner channels, trimming PCB component leads, and cutting plastic cable ties. Press both handles together to cut. Not suitable for cutting iron wire or steel wire.",
-    descZh: "普遍用于注塑件修剪水口毛刺、模型零件流道剪切、电路板元件引脚修理及日常剪电线塑料绑带，手压两钳柄进行剪切操作即可，注意该钳不适用于剪铁丝及钢丝。",
-    descZhTw: "普遍用於注塑件修剪水口毛刺、模型零件流道剪切、電路板元件引腳修理及日常剪電線塑料綁帶，手壓兩鉗柄進行剪切操作即可，注意該鉗不適用於剪鐵絲及鋼絲。",
-    descMs: "Digunakan meluas untuk memangkas gate dan gerembolan bahagian acuan suntikan, memotong saluran lari komponen model, membaiki pin komponen PCB, dan memotong pengikat plastik. Tekan kedua pemegang untuk memotong. Tidak sesuai untuk memotong wayar besi atau wayar keluli.",
+    descEn:
+      "Widely used for trimming injection-moulded part gates and burrs, cutting model runner channels, trimming PCB component leads, and cutting plastic cable ties. Press both handles together to cut. Not suitable for cutting iron wire or steel wire.",
+    descZh:
+      "普遍用于注塑件修剪水口毛刺、模型零件流道剪切、电路板元件引脚修理及日常剪电线塑料绑带，手压两钳柄进行剪切操作即可，注意该钳不适用于剪铁丝及钢丝。",
+    descZhTw:
+      "普遍用於注塑件修剪水口毛刺、模型零件流道剪切、電路板元件引腳修理及日常剪電線塑料綁帶，手壓兩鉗柄進行剪切操作即可，注意該鉗不適用於剪鐵絲及鋼絲。",
+    descMs:
+      "Digunakan meluas untuk memangkas gate dan gerembolan bahagian acuan suntikan, memotong saluran lari komponen model, membaiki pin komponen PCB, dan memotong pengikat plastik. Tekan kedua pemegang untuk memotong. Tidak sesuai untuk memotong wayar besi atau wayar keluli.",
     specs: { Size: "5 inch", Model: "DL2715", Type: "Flush Cutter Pliers" },
     price: "16.00",
     stock: 300,
@@ -1604,10 +1800,14 @@ const productSeed = [
     nameZh: "超威木柄钳工锤0.3kg",
     nameZhTw: "超威木柄鉗工錘0.3kg",
     nameMs: "Tukul Mekanik Pemegang Kayu Chaowei 0.3kg",
-    descEn: "Mainly used for driving nails during furniture assembly, reshaping sheet metal, and light striking tasks in door and window repairs. Hold the exposed end of the wooden handle; ensure the hammer face is parallel to the workpiece when striking.",
-    descZh: "主要用于家具安装钉钉子、钣金归位整形及门窗维修等小敲击作业，握住木柄尾端露出部分，落锤时保证锤面和工件平行。",
-    descZhTw: "主要用於家具安裝釘釘子、鈑金歸位整形及門窗維修等小敲擊作業，握住木柄尾端露出部分，落錘時保證錘面和工件平行。",
-    descMs: "Terutamanya digunakan untuk memaku semasa pemasangan perabot, membentuk semula kepingan logam, dan tugas ketukan ringan dalam pembaikan pintu dan tingkap. Pegang hujung yang terdedah pada pemegang kayu; pastikan muka tukul selari dengan benda kerja semasa memukul.",
+    descEn:
+      "Mainly used for driving nails during furniture assembly, reshaping sheet metal, and light striking tasks in door and window repairs. Hold the exposed end of the wooden handle; ensure the hammer face is parallel to the workpiece when striking.",
+    descZh:
+      "主要用于家具安装钉钉子、钣金归位整形及门窗维修等小敲击作业，握住木柄尾端露出部分，落锤时保证锤面和工件平行。",
+    descZhTw:
+      "主要用於家具安裝釘釘子、鈑金歸位整形及門窗維修等小敲擊作業，握住木柄尾端露出部分，落錘時保證錘面和工件平行。",
+    descMs:
+      "Terutamanya digunakan untuk memaku semasa pemasangan perabot, membentuk semula kepingan logam, dan tugas ketukan ringan dalam pembaikan pintu dan tingkap. Pegang hujung yang terdedah pada pemegang kayu; pastikan muka tukul selari dengan benda kerja semasa memukul.",
     specs: { Weight: "0.3kg", HandleMaterial: "Wood", Type: "Mechanic Hammer" },
     price: "6.00",
     stock: 300,
@@ -1620,10 +1820,14 @@ const productSeed = [
     nameZh: "超威普通木柄石工锤1250g",
     nameZhTw: "超威普通木柄石工錘1250g",
     nameMs: "Tukul Tukang Batu Pemegang Kayu Biasa Chaowei 1250g",
-    descEn: "Suitable for demolishing lightweight brick walls, chiselling stone, removing ceramic tiles, and assembling or dismantling construction formwork. When used with a steel chisel or cold chisel, hold the front of the wooden handle with both hands to improve impact force.",
-    descZh: "适用于破拆轻质砖墙、石料开凿、瓷砖铲除及建筑模板拆装，配合钢钎或錾子使用时需要双手握持木柄前端以提高冲击力。",
-    descZhTw: "適用於破拆輕質磚牆、石料開鑿、瓷磚鏟除及建築模板拆裝，配合鋼釺或鑿子使用時需要雙手握持木柄前端以提高衝擊力。",
-    descMs: "Sesuai untuk merobohkan dinding bata ringan, memahat batu, menanggalkan jubin seramik, dan memasang atau membongkar acuan pembinaan. Apabila digunakan bersama pahat besi atau pahat sejuk, pegang bahagian depan pemegang kayu dengan kedua tangan untuk meningkatkan daya hentaman.",
+    descEn:
+      "Suitable for demolishing lightweight brick walls, chiselling stone, removing ceramic tiles, and assembling or dismantling construction formwork. When used with a steel chisel or cold chisel, hold the front of the wooden handle with both hands to improve impact force.",
+    descZh:
+      "适用于破拆轻质砖墙、石料开凿、瓷砖铲除及建筑模板拆装，配合钢钎或錾子使用时需要双手握持木柄前端以提高冲击力。",
+    descZhTw:
+      "適用於破拆輕質磚牆、石料開鑿、瓷磚鏟除及建築模板拆裝，配合鋼釺或鑿子使用時需要雙手握持木柄前端以提高衝擊力。",
+    descMs:
+      "Sesuai untuk merobohkan dinding bata ringan, memahat batu, menanggalkan jubin seramik, dan memasang atau membongkar acuan pembinaan. Apabila digunakan bersama pahat besi atau pahat sejuk, pegang bahagian depan pemegang kayu dengan kedua tangan untuk meningkatkan daya hentaman.",
     specs: { Weight: "1250g", HandleMaterial: "Wood", Type: "Mason Hammer" },
     price: "10.00",
     stock: 200,
