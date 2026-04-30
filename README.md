@@ -173,6 +173,9 @@ DATABASE_URL is set automatically by docker-compose — do NOT override it here
 Alternatively, deploy from the terminal:
 
 ```bash
+pnpm build
+scp -r dist/ root@服务器:/opt/E-Commerce-AI/
+
 cd /opt/hardware_ecommerce
 docker compose up -d --build
 ```

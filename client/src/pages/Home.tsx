@@ -2,13 +2,20 @@ import { useI18n } from "@/contexts/I18nContext";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Wrench, CircleDot, Zap, Nut, ShoppingBag } from "lucide-react";
+import {
+  ArrowRight,
+  Wrench,
+  // CircleDot,
+  Zap,
+  Nut,
+  ShoppingBag,
+} from "lucide-react";
 import StoreLayout from "@/components/StoreLayout";
 import ProductCard from "@/components/ProductCard";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   "metal-hardware": <Wrench className="h-6 w-6" />,
-  bearings: <CircleDot className="h-6 w-6" />,
+  // bearings: <CircleDot className="h-6 w-6" />,
   electromechanical: <Zap className="h-6 w-6" />,
   screws: <Nut className="h-6 w-6" />,
   "daily-supplies": <ShoppingBag className="h-6 w-6" />,
@@ -69,7 +76,7 @@ export default function Home() {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {categories?.map(cat => (
+          {categories?.filter(cat => cat.slug !== "bearings").map(cat => (
             <Link
               key={cat.slug}
               href={`/products?cat=${cat.slug}`}
