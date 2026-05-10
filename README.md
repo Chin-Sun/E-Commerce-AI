@@ -88,23 +88,63 @@ pnpm dev
 NODE_ENV=production PORT=3000 pm2 start dist/index.js --name ecommerce
 
 # stop the prod server
-pnpm stop
+pm2 stop ecommerce
 ```
 
 ---
 
 ## Production Build & Deploy
 
+**local**:
+
 ```bash
 pnpm build
 # Outputs:
 #   dist/          — client bundle (served as static files)
 #   dist/index.js  — server bundle
+scp -i ~/.ssh/.pem -r dist/ root@w.e.b:/opt/E-Commerce-AI/
+```
 
-NODE_ENV=production node dist/index.js
+**cloud**:
+
+```
+NODE_ENV=production PORT=3000 pm2 start dist/index.js --name ecommerce
 ```
 
 The server trusts the `X-Forwarded-Proto` header for HTTPS detection when behind a proxy.
+
+### Run database migrations
+
+Wait for the `db` container to be healthy (check `docker compose ps`), then:
+
+Or, simpler — run from the host with the composed DATABASE_URL:
+
+```bash
+cd /opt/hardware_ecommerce
+pnpm db:push
+```
+
+### Seed data
+
+Or from the host (requires Node + pnpm installed on the server):
+
+```bash
+node server/seed.mjs
+```
+
+### Updating the app
+
+```bash
+cd /opt/hardware_ecommerce
+git pull
+```
+
+### New Dependencies
+
+```bash
+pnpm add ws @deepgram/sdk
+pnpm add -D @types/ws
+```
 
 ---
 
